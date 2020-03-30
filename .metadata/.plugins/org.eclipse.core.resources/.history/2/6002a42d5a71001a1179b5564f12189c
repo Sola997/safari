@@ -1,5 +1,0 @@
-package com.safari.aukcija.repository;
-
-public interface KategorijaRepository {
-
-}
