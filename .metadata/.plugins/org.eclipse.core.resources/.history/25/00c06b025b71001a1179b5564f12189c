@@ -1,0 +1,5 @@
+package com.safari.aukcija.service;
+
+public class KategorijaService {
+
+}
