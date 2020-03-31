@@ -7,24 +7,24 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safari.aukcija.repository.KategorijaRepository;
+import com.safari.aukcija.service.OcenaService;
 
-import model.Kategorija;
+import model.Ocena;
 
 @RestController
 @EntityScan("Model")
-public class Controller {
-	
+public class OcenaController {
+
 	@Autowired
-	KategorijaRepository kr;
+	OcenaService os;
 	
-	@RequestMapping("/hello")
-	public String sayHi() {
-		return "Hello";
+	@RequestMapping("/getAllOcena")
+	public List<Ocena> getAllOcena(){
+		return os.getAll();
 	}
 	
-	@RequestMapping("/getAllKategorije")
-	public List<Kategorija> getAllKategorije() {
-		return kr.findAll();
+	@RequestMapping("/saveOcena")
+	public Ocena saveOcena(Ocena o) {
+		return os.addOcena(o);
 	}
 }
