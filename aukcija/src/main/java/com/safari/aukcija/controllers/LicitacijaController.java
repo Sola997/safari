@@ -23,7 +23,7 @@ public class LicitacijaController {
 		return ls.getAll();
 	}
 	
-	@RequestMapping("/saveKorisnik")
+	@RequestMapping("/saveLicitacija")
 	public Licitacija saveLicitacija(Licitacija l) {
 		return ls.addLicitacija(l);
 	}
