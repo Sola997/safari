@@ -31,10 +31,7 @@ public class KategorijaController {
 		Kategorija k = new Kategorija();
 		String nazivKategorije = request.getParameter("nazivKategorije");
 		k.setNazivKategorije(nazivKategorije);
-<<<<<<< HEAD
 		return korisnikService.addKategorija(k);
-=======
-		return kr.addKategorija(k);
->>>>>>> 091bde4245aa272c38577657a64c8ae8c491a990
+
 	}
 }
