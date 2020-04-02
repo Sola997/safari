@@ -16,15 +16,16 @@ import model.Ocena;
 public class OcenaController {
 
 	@Autowired
-	OcenaService os;
+	OcenaService ocenaService;
 	
 	@RequestMapping("/getAllOcena")
 	public List<Ocena> getAllOcena(){
-		return os.getAll();
+		return ocenaService.getAll();
 	}
 	
 	@RequestMapping("/saveOcena")
 	public Ocena saveOcena(Ocena o) {
-		return os.addOcena(o);
+		Ocena ocena= ocenaService.addOcena(o);
+		return ocena;
 	}
 }

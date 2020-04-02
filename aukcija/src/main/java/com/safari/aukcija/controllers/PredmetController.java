@@ -18,15 +18,16 @@ import model.Predmet;
 public class PredmetController {
 
 	@Autowired
-	PredmetService ps;
+	PredmetService predmetService;
 	
 	@RequestMapping("/getAllPredmet")
 	public List<Predmet> getAllPredmet(){
-		return ps.getAll();
+		return predmetService.getAll();
 	}
 	
 	@RequestMapping("/savePredmet")
 	public Predmet savePoruka(Predmet p) {
-		return ps.addPredmet(p);
+		Predmet predmet = predmetService.addPredmet(p);
+		return predmet;
 	}
 }

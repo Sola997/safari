@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,16 +17,19 @@ import model.Licitacija;
 public class LicitacijaController {
 	
 	@Autowired
-	LicitacijaService ls;
+	LicitacijaService licitacijaService;
 	
 	@RequestMapping("/getAllLicitacija")
 	public List<Licitacija> getAllLicitacija(){
-		return ls.getAll();
+		return licitacijaService.getAll();
 	}
 	
-	@RequestMapping("/saveKorisnik")
+	@PostMapping("/saveKorisnik")
 	public Licitacija saveLicitacija(Licitacija l) {
-		return ls.addLicitacija(l);
+		Licitacija licitacija= licitacijaService.addLicitacija(l);
+		return licitacija;
+		
+		
 	}
 	
 }

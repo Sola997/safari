@@ -16,16 +16,17 @@ import model.Poruka;
 public class PorukaController {
 
 	@Autowired
-	PorukaService ps;
+	PorukaService porukaService;
 	
 	@RequestMapping("/getAllPoruka")
 	public List<Poruka> getAllPoruka(){
-		return ps.getAll();
+		return porukaService.getAll();
 	}
 	
 	@RequestMapping("/savePoruka")
 	public Poruka savePoruka(Poruka p) {
-		return ps.addPoruka(p);
+		Poruka poruka= porukaService.addPoruka(p);
+		return poruka;
 	}
 	
 }	

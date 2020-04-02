@@ -16,15 +16,16 @@ import model.Slika;
 public class SlikaController {
 
 	@Autowired
-	SlikaService ss;
+	SlikaService slikaService;
 	
 	@RequestMapping("/getAllSlika")
 	public List<Slika> getAllSlika(){
-		return ss.getAll();
+		return slikaService.getAll();
 	}
 	
 	@RequestMapping("/saveSlika")
 	public Slika saveSlika(Slika s) {
-		return ss.addSlika(s);
+		Slika slika = slikaService.addSlika(s);
+		return slika;
 	}
 }

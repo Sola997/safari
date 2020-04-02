@@ -22,4 +22,5 @@ public class KorisnikService {
 	public List<Korisnik> getAll() {
 		 return kr.findAll();
 	}
+	
 }
