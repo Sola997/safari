@@ -29,32 +29,34 @@ public class KorisnikController {
 	
 	Korisnik ulogovan;
 	
-	@RequestMapping(value="/login", method={RequestMethod.POST,RequestMethod.GET}) 
-	public String login(String e_mail,String password,Model m,HttpServletRequest request){
-		ulogovan = korisnikRepository.login(e_mail, password);
+	@RequestMapping(value="/login", method={RequestMethod.POST,RequestMethod.GET}, produces = { "application/json", "application/xml" }) 
+	public Korisnik login(String username,String password,Model m,HttpServletRequest request){
+		ulogovan = korisnikRepository.login(username, password);
 		if(ulogovan != null){
 			request.getSession().setAttribute("ulogovan", ulogovan);
 		}else{
 			m.addAttribute("porukaLogin", "Uneli ste pogresne podatke");
 		}
 		
-		return "Logovanje";
+		return ulogovan;
 	}
 	
-	@PostMapping(value="registracija")
-	public String registracija(Korisnik k ,HttpServletRequest request){
+	@PostMapping(value="registracija", produces = { "application/json", "application/xml" })
+	public boolean registracija(Korisnik k ,HttpServletRequest request){
 		try{
 			k=korisnikService.addKorisnik(k);
 			if(k != null){
 				request.getSession().setAttribute("porukaR", "Uspesno ste registrovani.");
+				return true;
 			}else{
 				request.getSession().setAttribute("porukaR", "Greska prilikom registracije"); 
+				return false;
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		return "Registracija";
+		return false;
 	}
 	
 	@RequestMapping("/getAllKorinsik")
