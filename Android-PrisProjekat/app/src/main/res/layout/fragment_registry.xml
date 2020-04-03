@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20sp"
+    android:background="@color/colorLightPrimary"
+    android:paddingRight="20sp"
+    tools:context=".RegistryFragment">
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:gravity="center"
+            android:text="Enter your name"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/registry_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <TextView
+            android:gravity="center"
+            android:text="Enter your last name"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/registry_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:text="Enter your username"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/registry_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:text="Enter your password"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/registry_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:text="Enter your password again"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/registry_password2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:text="Enter your email adress"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/registry_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <Button
+            android:id="@+id/registry_button"
+            android:layout_marginTop="20sp"
+            android:background="@color/colorPrimary"
+            android:text="Registry"
+            android:textColor="@color/colorLightPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Button>
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

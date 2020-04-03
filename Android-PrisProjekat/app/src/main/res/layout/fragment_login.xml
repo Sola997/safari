@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="20sp"
+    android:background="@color/colorLightPrimary"
+    android:paddingRight="20sp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="@color/colorPrimary"
+            android:text="Enter your username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/login_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <ProgressBar
+            android:id="@+id/login_progress_bar"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ProgressBar>
+        <TextView
+            android:gravity="center"
+            android:textSize="25sp"
+            android:text="Enter your password"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <Button
+            android:id="@+id/login_button"
+            android:layout_marginTop="20sp"
+            android:text="Login"
+            android:textSize="25sp"
+            android:textColor="@color/colorLightPrimary"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Button>
+        <Button
+            android:paddingTop="10sp"
+            android:id="@+id/login_go_to_registry"
+            android:gravity="end"
+            android:text="Can not sign in?  Create account"
+           android:textColor="@color/colorPrimary"
+            android:background="@color/colorLightPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Button>
+    </LinearLayout>
+
+
+
+</LinearLayout>
