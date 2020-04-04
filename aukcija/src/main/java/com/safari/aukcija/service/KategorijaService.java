@@ -19,7 +19,7 @@ public class KategorijaService {
 		return kr.save(k);
 	}
 	
-	public List<Kategorija> getAll() {
+	public List<Kategorija> getAllKategorije() {
 		 return kr.findAll();
 	}
 }

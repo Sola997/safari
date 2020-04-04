@@ -10,16 +10,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safari.aukcija.service.KategorijaService;
+import com.safari.aukcija.service.KorisnikService;
 
 import model.Kategorija;
-
+import model.Korisnik;
 
 @RestController
+@RequestMapping("auth")
 @EntityScan("Model")
-public class KategorijaController {
-
+public class Controller_Auth {
+	
+	@Autowired
+	KorisnikService korisnikService;
+	
 	@Autowired
 	KategorijaService kategorijaService;
+	
+	@RequestMapping("/getAllKorisnik")
+	public List<Korisnik> getAllKorisnik(){
+		return korisnikService.getAll();
+	}
 	
 	@RequestMapping("/getAllKategorije")
 	public List<Kategorija> getAllKategorije() {
