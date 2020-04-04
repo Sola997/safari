@@ -6,10 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safari.aukcija.repository.KorisnikRepository;
 import com.safari.aukcija.service.KorisnikService;
 
 import model.Korisnik;
@@ -19,13 +22,49 @@ import model.Korisnik;
 public class KorisnikController {
 
 	@Autowired
-
 	KorisnikService korisnikService;
+	
+	@Autowired
+	KorisnikRepository korisnikRepository;
+	
+	Korisnik ulogovan;
+	
+	@RequestMapping(value="/login", method={RequestMethod.POST,RequestMethod.GET}, produces = { "application/json", "application/xml" }) 
+	public Korisnik login(String username,String password,Model m,HttpServletRequest request){
+		ulogovan = korisnikRepository.login(username, password);
+		if(ulogovan != null){
+			request.getSession().setAttribute("ulogovan", ulogovan);
+		}else{
+			m.addAttribute("porukaLogin", "Uneli ste pogresne podatke");
+		}
+		
+		return ulogovan;
+	}
+	
+	@PostMapping(value="registracija", produces = { "application/json", "application/xml" })
+	public boolean registracija(Korisnik k ,HttpServletRequest request){
+		try{
+			k=korisnikService.addKorisnik(k);
+			if(k != null){
+				request.getSession().setAttribute("porukaR", "Uspesno ste registrovani.");
+				return true;
+			}else{
+				request.getSession().setAttribute("porukaR", "Greska prilikom registracije"); 
+				return false;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	
 	@RequestMapping("/getAllKorinsik")
 	public List<Korisnik> getAllKorisnik(){
 		return korisnikService.getAll();
 	}
+	
+	
 	
 	@RequestMapping("/saveKorisnik")
 	public Korisnik saveKorisnik(HttpServletRequest request) {
