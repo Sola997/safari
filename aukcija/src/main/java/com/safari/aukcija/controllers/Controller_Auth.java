@@ -2,13 +2,19 @@ package com.safari.aukcija.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safari.aukcija.repository.PredmetRepository;
+import com.safari.aukcija.security.CustomerUserDetailsService;
 import com.safari.aukcija.service.KategorijaService;
 import com.safari.aukcija.service.KorisnikService;
 import com.safari.aukcija.service.LicitacijaService;
@@ -31,6 +37,9 @@ import model.Slika;
 public class Controller_Auth {
 
 	@Autowired
+	CustomerUserDetailsService userDetailsService;
+	
+	@Autowired
 	KorisnikService korisnikService;
 
 	@Autowired
@@ -50,6 +59,9 @@ public class Controller_Auth {
 
 	@Autowired
 	LicitacijaService licitacijaService;
+	
+	@Autowired
+	PredmetRepository predmetRepository;
 
 	@RequestMapping("/getAllKorisnik")
 	public List<Korisnik> getAllKorisnik() {
@@ -89,5 +101,11 @@ public class Controller_Auth {
 	@RequestMapping(value = "/saveKategorija" ,method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
 	public Kategorija saveKategorija(@RequestBody Kategorija kategorija) {
 		return kategorijaService.addKategorija(kategorija);
+	}
+	
+	@RequestMapping(value = "/getPredmetKategorije" ,method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
+	public List<Predmet> getPredmetKategorije(Kategorija nazivKategorije){
+		List<Predmet> predmetKategorije = predmetRepository.predmetPoKategoriji(nazivKategorije);
+		return predmetKategorije;
 	}
 }

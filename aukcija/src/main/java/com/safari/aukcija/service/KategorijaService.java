@@ -15,6 +15,8 @@ public class KategorijaService {
 	@Autowired
 	KategorijaRepository kr;
 	
+	Kategorija k;
+	
 	public Kategorija addKategorija(Kategorija k) {
 		return kr.save(k);
 	}
@@ -22,4 +24,5 @@ public class KategorijaService {
 	public List<Kategorija> getAllKategorije() {
 		 return kr.findAll();
 	}
+	
 }
