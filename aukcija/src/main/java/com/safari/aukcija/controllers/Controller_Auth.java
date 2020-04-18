@@ -89,6 +89,14 @@ public class Controller_Auth {
 	public List<Licitacija> getAllLicitacija() {
 		return licitacijaService.getAll();
 	}
+	
+	//getBy
+	
+	@RequestMapping(value = "/getPredmetsByKategorija", method = RequestMethod.GET, produces = "application/json")
+	public List<Predmet> getPredmetsByKategorija(@RequestParam Integer idKategorija) {
+		Kategorija kategorija = kategorijaService.getById(idKategorija);
+		return predmetService.getByKategorija(kategorija);
+	}
 
 	// save
 

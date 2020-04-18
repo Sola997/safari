@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.safari.aukcija.repository.PredmetRepository;
 
+import model.Kategorija;
 import model.Predmet;
 
 @Service
@@ -19,8 +20,11 @@ public class PredmetService {
 		return predmetRepository.save(p);
 	}
 	
-	
 	public List<Predmet> getAll(){
 		return predmetRepository.findAll();
+	}
+	
+	public List<Predmet> getByKategorija(Kategorija k){
+		return predmetRepository.findByKategorija(k);
 	}
 }
