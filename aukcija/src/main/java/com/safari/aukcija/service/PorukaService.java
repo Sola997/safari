@@ -13,13 +13,13 @@ import model.Poruka;
 public class PorukaService {
 
 	@Autowired
-	PorukaRepository pr;
+	PorukaRepository porukaRepository;
 	
 	public Poruka addPoruka(Poruka p) {
-		return pr.save(p);
+		return porukaRepository.save(p);
 	}
 	
 	public List<Poruka> getAll (){
-		return pr.findAll();
+		return porukaRepository.findAll();
 	}
 }

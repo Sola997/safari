@@ -13,14 +13,14 @@ import model.Slika;
 public class SlikaService {
 
 	@Autowired
-	SlikaRepository sr;
+	SlikaRepository slikaRepository;
 	
 	public Slika addSlika(Slika s) {
-		return sr.save(s);
+		return slikaRepository.save(s);
 	}
 	
 	public List<Slika> getAll(){
-		return sr.findAll();
+		return slikaRepository.findAll();
 	}
 	
 }

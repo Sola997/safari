@@ -13,16 +13,14 @@ import model.Kategorija;
 public class KategorijaService {
 	
 	@Autowired
-	KategorijaRepository kr;
-	
-	Kategorija k;
+	KategorijaRepository kategorijaRepository;
 	
 	public Kategorija addKategorija(Kategorija k) {
-		return kr.save(k);
+		return kategorijaRepository.save(k);
 	}
 	
 	public List<Kategorija> getAllKategorije() {
-		 return kr.findAll();
+		 return kategorijaRepository.findAll();
 	}
 	
 }

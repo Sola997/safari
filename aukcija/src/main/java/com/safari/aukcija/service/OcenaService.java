@@ -13,13 +13,13 @@ import model.Ocena;
 public class OcenaService {
 
 	@Autowired
-	OcenaRepository or;
+	OcenaRepository ocenaRepository;
 	
 	public Ocena addOcena(Ocena o) {
-		return or.save(o);
+		return ocenaRepository.save(o);
 	}
 	
 	public List<Ocena> getAll() {
-		 return or.findAll();
+		 return ocenaRepository.findAll();
 	}
 }

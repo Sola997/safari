@@ -13,14 +13,14 @@ import model.Predmet;
 public class PredmetService {
 
 	@Autowired
-	PredmetRepository pr;
+	PredmetRepository predmetRepository;
 	
 	public Predmet addPredmet(Predmet p) {
-		return pr.save(p);
+		return predmetRepository.save(p);
 	}
 	
 	
 	public List<Predmet> getAll(){
-		return pr.findAll();
+		return predmetRepository.findAll();
 	}
 }

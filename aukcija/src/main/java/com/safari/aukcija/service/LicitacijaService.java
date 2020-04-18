@@ -13,13 +13,13 @@ import model.Licitacija;
 public class LicitacijaService {
 
 	@Autowired
-	LicitacijaRepository lr;
+	LicitacijaRepository licitacijaRepository;
 	
 	public Licitacija addLicitacija(Licitacija l) {
-		return lr.save(l);
+		return licitacijaRepository.save(l);
 	}
 	
 	public List<Licitacija> getAll() {
-		 return lr.findAll();
+		 return licitacijaRepository.findAll();
 	}
 }
