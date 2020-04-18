@@ -31,22 +31,27 @@ public class Korisnik implements Serializable {
 
 	//bi-directional many-to-one association to Licitacija
 	@OneToMany(mappedBy="korisnik")
+	@Transient
 	private List<Licitacija> licitacijas;
 
 	//bi-directional many-to-one association to Ocena
 	@OneToMany(mappedBy="korisnik")
+	@Transient
 	private List<Ocena> ocenas;
 
 	//bi-directional many-to-one association to Poruka
 	@OneToMany(mappedBy="korisnik1")
+	@Transient
 	private List<Poruka> porukas1;
 
 	//bi-directional many-to-one association to Poruka
 	@OneToMany(mappedBy="korisnik2")
+	@Transient
 	private List<Poruka> porukas2;
 
 	//bi-directional many-to-one association to Predmet
 	@OneToMany(mappedBy="korisnik")
+	@Transient
 	private List<Predmet> predmets;
 
 	public Korisnik() {

@@ -22,6 +22,7 @@ public class Kategorija implements Serializable {
 
 	//bi-directional many-to-one association to Predmet
 	@OneToMany(mappedBy="kategorija", fetch=FetchType.LAZY)
+	@Transient
 	private List<Predmet> predmets;
 
 	public Kategorija() {

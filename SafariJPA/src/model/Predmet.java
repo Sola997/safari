@@ -34,6 +34,7 @@ public class Predmet implements Serializable {
 
 	//bi-directional many-to-one association to Licitacija
 	@OneToMany(mappedBy="predmet")
+	@Transient
 	private List<Licitacija> licitacijas;
 
 	//bi-directional many-to-one association to Kategorija
@@ -47,6 +48,7 @@ public class Predmet implements Serializable {
 
 	//bi-directional many-to-one association to Slika
 	@OneToMany(mappedBy="predmet")
+	@Transient
 	private List<Slika> slikas;
 
 	public Predmet() {
