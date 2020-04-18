@@ -1,13 +1,11 @@
 package com.safari.aukcija.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -62,38 +60,55 @@ public class Controller_Auth {
 	
 	@Autowired
 	PredmetRepository predmetRepository;
+	
+	@RequestMapping(value = "loginSuccess", method = RequestMethod.GET, produces = "application/json")
+	public boolean loginSuccess() {
+		return true;
+	}
+	
+	@RequestMapping(value = "loginFaliure", method = RequestMethod.POST, produces = "application/json")
+	public boolean loginFaliure() {
+		return false;
+	}
+	
+	@RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET, produces = "application/json")
+	public Korisnik getCurrentUser(Principal p) {
+		String username = p.getName();
+		Korisnik k = korisnikService.findByUsername(username);
+		return k;
+	}
 
-	@RequestMapping("/getAllKorisnik")
+	@RequestMapping(value = "/getAllKorisnik", method = RequestMethod.GET, produces = "application/json")
 	public List<Korisnik> getAllKorisnik() {
 		return korisnikService.getAll();
 	}
 
-	@RequestMapping("/getAllKategorije")
+	@RequestMapping(value = "/getAllKategorije", method = RequestMethod.GET, produces = "application/json")
 	public List<Kategorija> getAllKategorije() {
 		return kategorijaService.getAllKategorije();
 	}
 
-	@RequestMapping("/getAllOcena")
+	@RequestMapping(value = "/getAllOcena", method = RequestMethod.GET, produces = "application/json")
 	public List<Ocena> getAllOcena() {
 		return ocenaService.getAll();
 	}
 
-	@RequestMapping("/getAllPoruka")
+	@RequestMapping(value = "/getAllPoruka", method = RequestMethod.GET, produces = "application/json")
 	public List<Poruka> getAllPoruka() {
 		return porukaService.getAll();
 	}
 
-	@RequestMapping("/getAllPredmet")
+	@RequestMapping(value = "/getAllPredmet", method = RequestMethod.GET, produces = "application/json")
 	public List<Predmet> getAllPredmet() {
 		return predmetService.getAll();
 	}
 
-	@RequestMapping("/getAllSlika")
+	@RequestMapping(value = "/getAllSlika", method = RequestMethod.GET, produces = "application/json")
 	public List<Slika> getAllSlika() {
 		return slikaService.getAll();
 	}
 
-	@RequestMapping("/getAllLicitacija")
+	@RequestMapping(value = "/getAllLicitacija", method = RequestMethod.GET, produces = "application/json")
 	public List<Licitacija> getAllLicitacija() {
 		return licitacijaService.getAll();
 	}
