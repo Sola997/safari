@@ -15,6 +15,9 @@ public class KategorijaService {
 	@Autowired
 	KategorijaRepository kategorijaRepository;
 	
+	public Kategorija getById(Integer idKategorija) {
+		return kategorijaRepository.findById(idKategorija).orElse(null);
+	}
 	public Kategorija addKategorija(Kategorija k) {
 		return kategorijaRepository.save(k);
 	}

@@ -1,13 +1,14 @@
 package com.safari.aukcija.controllers;
 
+import java.security.Principal;
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safari.aukcija.service.KategorijaService;
@@ -30,7 +31,7 @@ import model.Slika;
 @RequestMapping("auth")
 @EntityScan("Model")
 public class Controller_Auth {
-	
+
 	@Autowired
 	KorisnikService korisnikService;
 
@@ -51,6 +52,8 @@ public class Controller_Auth {
 
 	@Autowired
 	LicitacijaService licitacijaService;
+
+	// getAll
 
 	@RequestMapping(value = "/getAllKorisnik", method = RequestMethod.GET, produces = "application/json")
 	public List<Korisnik> getAllKorisnik() {
@@ -87,8 +90,22 @@ public class Controller_Auth {
 		return licitacijaService.getAll();
 	}
 
-	@RequestMapping(value = "/saveKategorija" ,method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
+	// save
+
+	@RequestMapping(value = "/saveKategorija", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public Kategorija saveKategorija(@RequestBody Kategorija kategorija) {
 		return kategorijaService.addKategorija(kategorija);
+	}
+
+	@RequestMapping(value = "/savePredmet", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public Predmet savePredmet(@RequestBody Predmet predmet, @RequestParam("idKategorija") Integer idKategorija,
+			Principal currentUser) {
+		Kategorija kategorija = kategorijaService.getById(idKategorija);
+		if (kategorija != null) {
+			predmet.setKategorija(kategorija);
+		}
+		Korisnik korisnik = korisnikService.findByUsername(currentUser.getName());
+		predmet.setKorisnik(korisnik);
+		return predmetService.addPredmet(predmet);
 	}
 }
