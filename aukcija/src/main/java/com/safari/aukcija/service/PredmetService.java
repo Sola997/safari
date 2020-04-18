@@ -19,6 +19,9 @@ public class PredmetService {
 	public Predmet addPredmet(Predmet p) {
 		return predmetRepository.save(p);
 	}
+	public Predmet getById(Integer idPredmet) {
+		return predmetRepository.findById(idPredmet).orElse(null);
+	}
 	
 	public List<Predmet> getAll(){
 		return predmetRepository.findAll();

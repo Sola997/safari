@@ -22,6 +22,7 @@ import com.safari.aukcija.service.SlikaService;
 import model.Kategorija;
 import model.Korisnik;
 import model.Licitacija;
+import model.LicitacijaPK;
 import model.Ocena;
 import model.Poruka;
 import model.Predmet;
@@ -89,11 +90,11 @@ public class Controller_Auth {
 	public List<Licitacija> getAllLicitacija() {
 		return licitacijaService.getAll();
 	}
-	
-	//getBy
-	
+
+	// getBy
+
 	@RequestMapping(value = "/getPredmetsByKategorija", method = RequestMethod.GET, produces = "application/json")
-	public List<Predmet> getPredmetsByKategorija(@RequestParam Integer idKategorija) {
+	public List<Predmet> getPredmetsByKategorija(@RequestParam("idKategorija") Integer idKategorija) {
 		Kategorija kategorija = kategorijaService.getById(idKategorija);
 		return predmetService.getByKategorija(kategorija);
 	}
@@ -115,5 +116,29 @@ public class Controller_Auth {
 		Korisnik korisnik = korisnikService.findByUsername(currentUser.getName());
 		predmet.setKorisnik(korisnik);
 		return predmetService.addPredmet(predmet);
+	}
+
+	@RequestMapping(value = "/saveLicitacija", method = RequestMethod.POST, produces = "application/json")
+	public Licitacija saveLicitacija(@RequestParam("ponuda") Integer ponuda,
+			@RequestParam("idPredmet") Integer idPredmet, Principal currentUser) {
+		// Vraca null ako predmet ne postoji ili pripada ulogovanom korisniku
+		Predmet predmet = predmetService.getById(idPredmet);
+		if (predmet == null) {
+			return null;
+		}
+		Korisnik korisnik = korisnikService.findByUsername(currentUser.getName());
+		if(korisnik.getIdKorisnik() == predmet.getKorisnik().getIdKorisnik()) {
+			return null;
+		}
+		Licitacija licitacija = new Licitacija();
+		LicitacijaPK pk = new LicitacijaPK();
+		pk.setKorisnik_idKorisnik(korisnik.getIdKorisnik());
+		pk.setPredmet_idPredmet(predmet.getIdPredmet());
+		licitacija.setId(pk);
+		licitacija.setPonuda(ponuda);
+		licitacija.setPobedio((byte) 0);
+		licitacija.setKorisnik(korisnik);
+		licitacija.setPredmet(predmet);
+		return licitacijaService.addLicitacija(licitacija);
 	}
 }
