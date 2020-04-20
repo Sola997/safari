@@ -156,7 +156,7 @@ public class Controller_Auth {
 		
 	}
 	
-	@RequestMapping(value = "/getUserByUserName" ,method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
+	@RequestMapping(value = "/getUserByUserName" ,method = RequestMethod.GET,  consumes ="application/json", produces = "application/json")
 	public Korisnik getUserByUserName(@RequestParam("userName")String userName) {
 		return korisnikService.findByUsername(userName);
 	}
