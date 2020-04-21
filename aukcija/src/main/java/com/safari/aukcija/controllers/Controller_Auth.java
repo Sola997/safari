@@ -142,11 +142,11 @@ public class Controller_Auth {
 		return licitacijaService.addLicitacija(licitacija);
 	}
 	
-	@RequestMapping(value = "/saveKomnetarIOcenu" ,method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
+	@RequestMapping(value = "/saveOcena" ,method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
 	public Ocena saveKomnetarIOcenu(@RequestParam("ocena") Integer ocena,
-			@RequestParam("komentar") String komentar, Principal currentUser) {
+			@RequestParam("komentar") String komentar, @RequestParam("idKorisnik")Integer idKorisnik) {
 		Ocena o = new Ocena();
-		Korisnik korisnik= korisnikService.findByUsername(currentUser.getName());
+		Korisnik korisnik= korisnikService.findById(idKorisnik);
 		o.setKomentar(komentar);
 		o.setOcena(ocena);
 		o.setKorisnik(korisnik);
