@@ -14,21 +14,26 @@ import model.Korisnik;
 public class KorisnikService {
 
 	@Autowired
-	KorisnikRepository kategorijaRepository;
+	KorisnikRepository korisnikRepository;
 	
 	public Korisnik addKorisnik(Korisnik k) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		k.setPassword(passwordEncoder.encode(k.getPassword()));
-		return kategorijaRepository.save(k);
+		return korisnikRepository.save(k);
 	}
 	
 	public List<Korisnik> getAll() {
-		 return kategorijaRepository.findAll();
+		 return korisnikRepository.findAll();
 	}
-
+	
+	public Korisnik findById(Integer idKorisnik) {
+		// TODO Auto-generated method stub
+		return korisnikRepository.findById(idKorisnik).orElse(null);
+	}
+	
 	public Korisnik findByUsername(String username) {
 		// TODO Auto-generated method stub
-		return kategorijaRepository.findByUsername(username);
+		return korisnikRepository.findByUsername(username);
 	}
 	
 }

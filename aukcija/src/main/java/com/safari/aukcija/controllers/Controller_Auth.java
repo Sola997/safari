@@ -127,7 +127,7 @@ public class Controller_Auth {
 			return null;
 		}
 		Korisnik korisnik = korisnikService.findByUsername(currentUser.getName());
-		if(korisnik.getIdKorisnik() == predmet.getKorisnik().getIdKorisnik()) {
+		if (korisnik.getIdKorisnik() == predmet.getKorisnik().getIdKorisnik()) {
 			return null;
 		}
 		Licitacija licitacija = new Licitacija();
@@ -141,18 +141,19 @@ public class Controller_Auth {
 		licitacija.setPredmet(predmet);
 		return licitacijaService.addLicitacija(licitacija);
 	}
-	
-	@RequestMapping(value = "/saveKomnetarIOcenu" ,method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
-	public Ocena saveKomnetarIOcenu(@RequestParam("ocena") Integer ocena,
-			@RequestParam("komentar") String komentar, Principal currentUser) {
-		
+
+	@RequestMapping(value = "/saveOcena", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public Ocena saveKomnetarIOcenu(@RequestParam("ocena") Integer ocena, @RequestParam("komentar") String komentar,
+			@RequestParam("korisnik") Integer idKorisnik) {
+		Korisnik korisnik = korisnikService.findById(idKorisnik);
+		if (korisnik == null) {
+			return null;
+		}
 		Ocena o = new Ocena();
-		Korisnik korisnik= korisnikService.findByUsername(currentUser.getName());
-		
 		o.setKomentar(komentar);
 		o.setOcena(ocena);
 		o.setKorisnik(korisnik);
 		return ocenaService.addOcena(o);
-		
+
 	}
 }
