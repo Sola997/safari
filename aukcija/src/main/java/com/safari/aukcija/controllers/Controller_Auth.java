@@ -145,10 +145,8 @@ public class Controller_Auth {
 	@RequestMapping(value = "/saveKomnetarIOcenu" ,method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
 	public Ocena saveKomnetarIOcenu(@RequestParam("ocena") Integer ocena,
 			@RequestParam("komentar") String komentar, Principal currentUser) {
-		
 		Ocena o = new Ocena();
 		Korisnik korisnik= korisnikService.findByUsername(currentUser.getName());
-		
 		o.setKomentar(komentar);
 		o.setOcena(ocena);
 		o.setKorisnik(korisnik);
