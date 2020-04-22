@@ -53,17 +53,8 @@ public class Licitacija implements Serializable {
 		return this.datumLicitacije;
 	}
 
-	public void setDatumLicitacije(String datumLicitacije) {
-		Date date = new Date();
-		if (datumLicitacije != "") {
-			try {
-				date = new SimpleDateFormat("yyyy-MM-dd").parse(datumLicitacije);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		this.datumLicitacije = date;
+	public void setDatumLicitacije() {
+		this.datumLicitacije = new Date();
 	}
 
 	public byte getPobedio() {

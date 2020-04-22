@@ -147,7 +147,7 @@ public class Controller_Auth {
 		LicitacijaPK pk = new LicitacijaPK();
 		pk.setKorisnik_idKorisnik(korisnik.getIdKorisnik());
 		pk.setPredmet_idPredmet(predmet.getIdPredmet());
-		licitacija.setDatumLicitacije("");
+		licitacija.setDatumLicitacije();
 		licitacija.setId(pk);
 		licitacija.setPonuda(ponuda);
 		licitacija.setPobedio((byte) 0);
@@ -156,7 +156,7 @@ public class Controller_Auth {
 		return licitacijaService.addLicitacija(licitacija);
 	}
 
-	@RequestMapping(value = "/saveOcena", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/saveOcena", method = RequestMethod.POST, produces = "application/json")
 	public Ocena saveKomnetarIOcenu(@RequestParam("ocena") Integer ocena, @RequestParam("komentar") String komentar,
 			@RequestParam("idKorisnik") Integer idKorisnik) {
 		Korisnik korisnik = korisnikService.findById(idKorisnik);
