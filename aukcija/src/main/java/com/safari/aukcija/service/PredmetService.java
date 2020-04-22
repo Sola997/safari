@@ -1,14 +1,20 @@
 package com.safari.aukcija.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.safari.aukcija.repository.PredmetRepository;
 
 import model.Kategorija;
 import model.Predmet;
+import model.Slika;
 
 @Service
 public class PredmetService {
@@ -29,5 +35,20 @@ public class PredmetService {
 	
 	public List<Predmet> getByKategorija(Kategorija k){
 		return predmetRepository.findByKategorija(k);
+	}
+	public Slika saveFile(MultipartFile imageFile) {
+		String folder = "/photos/";
+		try {
+			byte[] bytes = imageFile.getBytes();
+			Path path = Paths.get(folder + imageFile.getOriginalFilename());
+			Files.write(path,bytes);
+			Slika slika = new Slika();
+			slika.setIme(imageFile.getOriginalFilename());
+			slika.setPutanja(folder + imageFile.getOriginalFilename());
+			return slika;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
