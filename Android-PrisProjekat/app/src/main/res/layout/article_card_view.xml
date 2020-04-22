@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10sp"
+    android:layout_marginRight="10sp"
+    android:layout_marginTop="5sp"
+    android:layout_marginBottom="5sp"
+    android:innerRadius="0dp"
+    android:shape="ring"
+    app:cardCornerRadius="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:paddingLeft="20sp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/colorLightPrimary"
+                android:text="Name:"
+                android:textSize="18sp"
+                android:id="@+id/article_card_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:textColor="@color/colorLightPrimary"
+                android:text="Description:"
+                android:textSize="18sp"
+                android:id="@+id/article_card_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:textColor="@color/colorLightPrimary"
+                android:text="Starting price:"
+                android:textSize="18sp"
+                android:id="@+id/article_card_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:id="@+id/article_card_owner"
+                android:text="Owner"
+                android:textColor="@color/colorLightPrimary"
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/article_bid_button"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorLightPrimary"
+                    android:text="Bid for  this product"
+
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:layout_marginBottom="5sp"
+                    android:layout_gravity="start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </Button>
+                <Button
+                    android:id="@+id/article_owner_profile_button"
+                    android:paddingRight="5sp"
+                    android:paddingLeft="5sp"
+                    android:textColor="@color/colorLightPrimary"
+                    android:text="Enter owners profile"
+                    android:layout_marginLeft="5sp"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </Button>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:maxWidth="50sp"
+            android:maxHeight="50sp"
+            android:id="@+id/article_card_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ImageView>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

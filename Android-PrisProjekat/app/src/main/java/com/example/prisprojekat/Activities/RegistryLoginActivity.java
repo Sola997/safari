@@ -1,12 +1,15 @@
-package com.example.prisprojekat;
+package com.example.prisprojekat.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+
+import com.example.prisprojekat.R;
+import com.example.prisprojekat.fragments.LoginFragment;
+import com.example.prisprojekat.fragments.RegistryFragment;
 
 
 public class RegistryLoginActivity extends AppCompatActivity {
@@ -20,6 +23,7 @@ public class RegistryLoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar=findViewById(R.id.registry_login_toolbar);

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorLightPrimary"
+    android:layout_height="match_parent"
+    tools:context=".fragments.NewArticleFragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="40sp"
+        android:paddingRight="50sp"
+       android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/new_article_image"
+            android:visibility="gone"
+            android:maxWidth="50sp"
+            android:maxHeight="50sp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>
+        <Button
+            android:textColor="@color/colorLightPrimary"
+            android:id="@+id/new_article_image_chooser"
+            android:text="Choose image from gallery"
+            android:textSize="20sp"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Button>
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:paddingTop="20sp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name of the article" />
+
+        <EditText
+            android:id="@+id/new_article_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description of the article" />
+        <EditText
+            android:id="@+id/new_article_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Starting price" />
+        <EditText
+            android:inputType="number"
+            android:id="@+id/new_article_starting_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose category" />
+        <Spinner
+            android:id="@+id/new_article_spinner"
+            android:paddingTop="30sp"
+            android:paddingBottom="30sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Spinner>
+        <Button
+            android:id="@+id/new_article_add_new_article"
+            android:paddingRight="10sp"
+            android:paddingLeft="10sp"
+            android:textSize="20sp"
+            android:background="@color/colorPrimary"
+            android:text="Add this article"
+            android:textColor="@color/colorLightPrimary"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Button>
+    </LinearLayout>
+    <!-- TODO: Update blank fragment layout -->
+
+
+</LinearLayout>

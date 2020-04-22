@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RegistryLoginActivity">
+    tools:context=".Activities.RegistryLoginActivity">
     <include
         android:id="@+id/registry_login_toolbar"
         layout="@layout/toolbar">

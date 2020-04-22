@@ -1,17 +1,34 @@
-package com.example.prisprojekat;
+package com.example.prisprojekat.models;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class User {
+
+    @SerializedName("imeKorisnika")
+    @Expose
     private String name;
+
+    @SerializedName("prezimeKorisnika")
+    @Expose
     private String lastName;
+    @SerializedName("username")
+    @Expose
     private String username;
+
+    @SerializedName("password")
+    @Expose
     private String password;
+
+    @SerializedName("e_mail")
+    @Expose
     private String email;
 
     public User(String name, String lastName, String username, String password, String email){
         this.name=name;
         this.lastName=lastName;
         this.username=username;
-        this.password=password;
+      //  this.password=password;
         this.email=email;
     }
     public User(){
@@ -42,7 +59,7 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
+   public String getPassword() {
         return password;
     }
 

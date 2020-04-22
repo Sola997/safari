@@ -7,7 +7,7 @@
     android:paddingLeft="20sp"
     android:background="@color/colorLightPrimary"
     android:paddingRight="20sp"
-    tools:context=".RegistryFragment">
+    tools:context=".fragments.RegistryFragment">
 
     <LinearLayout
         android:layout_gravity="center"
@@ -24,6 +24,9 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:textColor="@color/colorUltraDark"
+            android:text="name"
+            android:gravity="center_horizontal"
             android:id="@+id/registry_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -37,6 +40,9 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:gravity="center_horizontal"
+            android:text="lastname"
+            android:textColor="@color/colorUltraDark"
             android:id="@+id/registry_last_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -50,6 +56,9 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorUltraDark"
+            android:text="username"
             android:id="@+id/registry_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -63,6 +72,9 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorUltraDark"
+            android:text="password"
             android:id="@+id/registry_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -76,6 +88,9 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorUltraDark"
+            android:text="password"
             android:id="@+id/registry_password2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -89,6 +104,9 @@
             android:layout_height="wrap_content">
         </TextView>
         <EditText
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorUltraDark"
+            android:text="email"
             android:id="@+id/registry_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -101,6 +119,17 @@
             android:textColor="@color/colorLightPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+        </Button>
+        <Button
+            android:id="@+id/registry_go_to_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingTop="10sp"
+            android:textColor="@color/colorPrimary"
+            android:text="Already have an account? Sign up now!"
+            android:background="@color/colorLightPrimary"
+            >
         </Button>
     </LinearLayout>
 

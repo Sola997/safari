@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightPrimary"
+    android:orientation="vertical"
+    tools:context=".fragments.ProfileFragment">
+
+    <TextView
+        android:id="@+id/profile_name_lastname"
+        android:paddingTop="15sp"
+        android:paddingBottom="15sp"
+        android:gravity="center_horizontal"
+        android:text="IME PREZIME"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/profile_username"
+        android:paddingBottom="15sp"
+        android:text="Your username:"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TextView>
+    <TextView
+        android:id="@+id/profile_email"
+        android:paddingBottom="35sp"
+        android:text="Your email:"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <TextView
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:id="@+id/profile_rating"
+        android:text="Your average rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <com.hsalf.smileyrating.SmileyRating
+        android:id="@+id/profile_smile_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:paddingTop="10sp"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:text="Leave a comment"
+        android:id="@+id/profile_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <EditText
+        android:textSize="20sp"
+        android:id="@+id/profile_leave_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </EditText>
+    <Button
+        android:textSize="20sp"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp"
+        android:textColor="@color/colorLightPrimary"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="end"
+        android:id="@+id/profile_submit_comment"
+        android:text="submit comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </Button>
+    <ListView
+        android:id="@+id/profile_coments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+
+</LinearLayout>

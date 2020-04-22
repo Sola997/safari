@@ -1,4 +1,4 @@
-package com.example.prisprojekat;
+package com.example.prisprojekat.models;
 
 public class Singleton {
 
