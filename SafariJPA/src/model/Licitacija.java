@@ -1,16 +1,18 @@
 package model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.persistence.*;
 import java.util.Date;
-
 
 /**
  * The persistent class for the licitacija database table.
  * 
  */
 @Entity
-@NamedQuery(name="Licitacija.findAll", query="SELECT l FROM Licitacija l")
+@NamedQuery(name = "Licitacija.findAll", query = "SELECT l FROM Licitacija l")
 public class Licitacija implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -24,16 +26,16 @@ public class Licitacija implements Serializable {
 
 	private int ponuda;
 
-	//bi-directional many-to-one association to Korisnik
+	// bi-directional many-to-one association to Korisnik
 	@ManyToOne
 	@MapsId("korisnik_idKorisnik")
-	@JoinColumn(name="korisnik_idKorisnik")
+	@JoinColumn(name = "korisnik_idKorisnik")
 	private Korisnik korisnik;
 
-	//bi-directional many-to-one association to Predmet
+	// bi-directional many-to-one association to Predmet
 	@ManyToOne
 	@MapsId("predmet_idPredmet")
-	@JoinColumn(name="predmet_idPredmet")
+	@JoinColumn(name = "predmet_idPredmet")
 	private Predmet predmet;
 
 	public Licitacija() {
@@ -51,8 +53,17 @@ public class Licitacija implements Serializable {
 		return this.datumLicitacije;
 	}
 
-	public void setDatumLicitacije(Date datumLicitacije) {
-		this.datumLicitacije = datumLicitacije;
+	public void setDatumLicitacije(String datumLicitacije) {
+		Date date = new Date();
+		if (datumLicitacije != "") {
+			try {
+				date = new SimpleDateFormat("yyyy-MM-dd").parse(datumLicitacije);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		this.datumLicitacije = date;
 	}
 
 	public byte getPobedio() {

@@ -147,6 +147,7 @@ public class Controller_Auth {
 		LicitacijaPK pk = new LicitacijaPK();
 		pk.setKorisnik_idKorisnik(korisnik.getIdKorisnik());
 		pk.setPredmet_idPredmet(predmet.getIdPredmet());
+		licitacija.setDatumLicitacije("");
 		licitacija.setId(pk);
 		licitacija.setPonuda(ponuda);
 		licitacija.setPobedio((byte) 0);
@@ -170,7 +171,7 @@ public class Controller_Auth {
 
 	}
 
-	@RequestMapping(value = "/getUserByUserName", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/getUserByUserName", method = RequestMethod.GET, produces = "application/json")
 	public Korisnik getUserByUserName(@RequestParam("userName") String userName) {
 		return korisnikService.findByUsername(userName);
 	}
