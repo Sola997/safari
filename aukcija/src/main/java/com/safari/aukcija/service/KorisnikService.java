@@ -10,11 +10,13 @@ import com.safari.aukcija.repository.KorisnikRepository;
 
 import model.Korisnik;
 
+
 @Service
 public class KorisnikService {
 
 	@Autowired
 	KorisnikRepository kategorijaRepository;
+	
 	
 	public Korisnik addKorisnik(Korisnik k) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -27,7 +29,6 @@ public class KorisnikService {
 	}
 
 	public Korisnik findByUsername(String username) {
-		// TODO Auto-generated method stub
 		return kategorijaRepository.findByUsername(username);
 	}
 	

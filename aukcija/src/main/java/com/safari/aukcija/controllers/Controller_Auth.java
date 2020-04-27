@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safari.aukcija.repository.OcenaRepository;
 import com.safari.aukcija.service.KategorijaService;
 import com.safari.aukcija.service.KorisnikService;
 import com.safari.aukcija.service.LicitacijaService;
@@ -53,6 +54,9 @@ public class Controller_Auth {
 
 	@Autowired
 	LicitacijaService licitacijaService;
+	
+	@Autowired
+	OcenaRepository ocenaRepository;
 
 	// getAll
 
@@ -159,5 +163,21 @@ public class Controller_Auth {
 	@RequestMapping(value = "/getUserByUserName" ,method = RequestMethod.GET,  consumes ="application/json", produces = "application/json")
 	public Korisnik getUserByUserName(@RequestParam("userName")String userName) {
 		return korisnikService.findByUsername(userName);
+	}
+	
+	
+	@RequestMapping(value = "/getOcenaByID" ,method = RequestMethod.GET) 
+	public List<Ocena> getOcenaByID(@RequestParam("idKorisnik")Integer idKorisnik) {
+		return ocenaRepository.getByKorisnik(idKorisnik);
+	}
+	 
+	@RequestMapping(value = "/getOcenaByUsername",method = RequestMethod.GET)
+	public List<Ocena> getOcenaByUsername(@RequestParam("username") String username){
+		return ocenaRepository.getByUsername(username);
+	}
+  
+	@RequestMapping(value = "/getOcenaByCurrentUser",method = RequestMethod.GET)
+	public List<Ocena> getOcenaByCurrentUser(Principal currUser){
+		return ocenaRepository.getByUsername(currUser.getName());
 	}
 }

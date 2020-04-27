@@ -22,4 +22,5 @@ public class OcenaService {
 	public List<Ocena> getAll() {
 		 return ocenaRepository.findAll();
 	}
+	
 }
