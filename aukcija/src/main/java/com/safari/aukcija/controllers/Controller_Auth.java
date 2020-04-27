@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.safari.aukcija.repository.OcenaRepository;
 import com.safari.aukcija.service.KategorijaService;
@@ -121,6 +122,18 @@ public class Controller_Auth {
 		predmet.setKorisnik(korisnik);
 		return predmetService.addPredmet(predmet);
 	}
+	
+	@RequestMapping(value = "/saveSlika", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public Slika saveSlika(@RequestParam("idPredmet") Integer idPredmet, @RequestParam("imageFile") MultipartFile imageFile) {
+		if (imageFile != null) {
+			Slika slika = predmetService.saveFile(imageFile);
+			if (slika != null) {
+				slika.setPredmet(predmetService.getById(idPredmet));
+				return slikaService.addSlika(slika);
+			}
+		}
+		return null;
+	}
 
 	@RequestMapping(value = "/saveLicitacija", method = RequestMethod.POST, produces = "application/json")
 	public Licitacija saveLicitacija(@RequestParam("ponuda") Integer ponuda,
@@ -131,13 +144,14 @@ public class Controller_Auth {
 			return null;
 		}
 		Korisnik korisnik = korisnikService.findByUsername(currentUser.getName());
-		if(korisnik.getIdKorisnik() == predmet.getKorisnik().getIdKorisnik()) {
+		if (korisnik.getIdKorisnik() == predmet.getKorisnik().getIdKorisnik()) {
 			return null;
 		}
 		Licitacija licitacija = new Licitacija();
 		LicitacijaPK pk = new LicitacijaPK();
 		pk.setKorisnik_idKorisnik(korisnik.getIdKorisnik());
 		pk.setPredmet_idPredmet(predmet.getIdPredmet());
+		licitacija.setDatumLicitacije();
 		licitacija.setId(pk);
 		licitacija.setPonuda(ponuda);
 		licitacija.setPobedio((byte) 0);
@@ -145,23 +159,24 @@ public class Controller_Auth {
 		licitacija.setPredmet(predmet);
 		return licitacijaService.addLicitacija(licitacija);
 	}
-	
-	@RequestMapping(value = "/saveKomnetarIOcenu" ,method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
-	public Ocena saveKomnetarIOcenu(@RequestParam("ocena") Integer ocena,
-			@RequestParam("komentar") String komentar, Principal currentUser) {
-		
+
+	@RequestMapping(value = "/saveOcena", method = RequestMethod.POST, produces = "application/json")
+	public Ocena saveKomnetarIOcenu(@RequestParam("ocena") Integer ocena, @RequestParam("komentar") String komentar,
+			@RequestParam("idKorisnik") Integer idKorisnik) {
+		Korisnik korisnik = korisnikService.findById(idKorisnik);
+		if (korisnik == null) {
+			return null;
+		}
 		Ocena o = new Ocena();
-		Korisnik korisnik= korisnikService.findByUsername(currentUser.getName());
-		
 		o.setKomentar(komentar);
 		o.setOcena(ocena);
 		o.setKorisnik(korisnik);
 		return ocenaService.addOcena(o);
-		
+
 	}
-	
-	@RequestMapping(value = "/getUserByUserName" ,method = RequestMethod.GET,  consumes ="application/json", produces = "application/json")
-	public Korisnik getUserByUserName(@RequestParam("userName")String userName) {
+
+	@RequestMapping(value = "/getUserByUserName", method = RequestMethod.GET, produces = "application/json")
+	public Korisnik getUserByUserName(@RequestParam("userName") String userName) {
 		return korisnikService.findByUsername(userName);
 	}
 	
