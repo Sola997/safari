@@ -1,6 +1,7 @@
 package com.safari.aukcija.controllers;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import model.Licitacija;
 import model.LicitacijaPK;
 import model.Ocena;
 import model.Poruka;
+import model.PorukaPK;
 import model.Predmet;
 import model.Slika;
 
@@ -55,7 +57,7 @@ public class Controller_Auth {
 
 	@Autowired
 	LicitacijaService licitacijaService;
-	
+
 	@Autowired
 	OcenaRepository ocenaRepository;
 
@@ -103,26 +105,31 @@ public class Controller_Auth {
 		Kategorija kategorija = kategorijaService.getById(idKategorija);
 		return predmetService.getByKategorija(kategorija);
 	}
-	
+
 	@RequestMapping(value = "/getUserByUserName", method = RequestMethod.GET, produces = "application/json")
 	public Korisnik getUserByUserName(@RequestParam("userName") String userName) {
 		return korisnikService.findByUsername(userName);
 	}
-	
-	
-	@RequestMapping(value = "/getOcenaByID" ,method = RequestMethod.GET) 
-	public List<Ocena> getOcenaByID(@RequestParam("idKorisnik")Integer idKorisnik) {
+
+	@RequestMapping(value = "/getOcenaByID", method = RequestMethod.GET)
+	public List<Ocena> getOcenaByID(@RequestParam("idKorisnik") Integer idKorisnik) {
 		return ocenaRepository.getByKorisnik(idKorisnik);
 	}
-	 
-	@RequestMapping(value = "/getOcenaByUsername",method = RequestMethod.GET)
-	public List<Ocena> getOcenaByUsername(@RequestParam("username") String username){
+
+	@RequestMapping(value = "/getOcenaByUsername", method = RequestMethod.GET)
+	public List<Ocena> getOcenaByUsername(@RequestParam("username") String username) {
 		return ocenaRepository.getByUsername(username);
 	}
-  
-	@RequestMapping(value = "/getOcenaByCurrentUser",method = RequestMethod.GET)
-	public List<Ocena> getOcenaByCurrentUser(Principal currUser){
+
+	@RequestMapping(value = "/getOcenaByCurrentUser", method = RequestMethod.GET)
+	public List<Ocena> getOcenaByCurrentUser(Principal currUser) {
 		return ocenaRepository.getByUsername(currUser.getName());
+	}
+	
+	@RequestMapping(value = "/getPorukeByCurrentUser", method = RequestMethod.GET)
+	public List<Poruka> getPorukeByCurrentUser(Principal principal) {
+		Korisnik user = korisnikService.findByUsername(principal.getName());
+		return porukaService.getByKorisnik(user);
 	}
 
 	// save
@@ -143,9 +150,10 @@ public class Controller_Auth {
 		predmet.setKorisnik(korisnik);
 		return predmetService.addPredmet(predmet);
 	}
-	
+
 	@RequestMapping(value = "/saveSlika", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public Slika saveSlika(@RequestParam("idPredmet") Integer idPredmet, @RequestParam("imageFile") MultipartFile imageFile) {
+	public Slika saveSlika(@RequestParam("idPredmet") Integer idPredmet,
+			@RequestParam("imageFile") MultipartFile imageFile) {
 		if (imageFile != null) {
 			Slika slika = predmetService.saveFile(imageFile);
 			if (slika != null) {
@@ -172,7 +180,7 @@ public class Controller_Auth {
 		LicitacijaPK pk = new LicitacijaPK();
 		pk.setKorisnik_idKorisnik(korisnik.getIdKorisnik());
 		pk.setPredmet_idPredmet(predmet.getIdPredmet());
-		licitacija.setDatumLicitacije();
+		licitacija.setDatumLicitacije(new Date());
 		licitacija.setId(pk);
 		licitacija.setPonuda(ponuda);
 		licitacija.setPobedio((byte) 0);
@@ -194,5 +202,23 @@ public class Controller_Auth {
 		o.setKorisnik(korisnik);
 		return ocenaService.addOcena(o);
 
+	}
+
+	@RequestMapping(value="savePoruka", method = RequestMethod.POST, produces = "application/json")
+	public Poruka savePoruka(@RequestParam("idKorisnik") Integer idKorisnik, @RequestParam("text") String text, Principal principal) {
+		Poruka poruka = new Poruka();
+		poruka.setDatum(new Date());
+		poruka.setPoruka(text);
+		Korisnik korisnik1 = korisnikService.findByUsername(principal.getName());
+		Korisnik korisnik2 = korisnikService.findById(idKorisnik);
+		poruka.setIdPosiljaoca(korisnik1.getIdKorisnik());
+		poruka.setKorisnik1(korisnik1);
+		poruka.setKorisnik2(korisnik2);
+		PorukaPK pk = new PorukaPK();
+		pk.setIdKupca(korisnik1.getIdKorisnik());
+		pk.setIdProdavca(korisnik2.getIdKorisnik());
+		poruka.setId(pk);
+		
+		return porukaService.addPoruka(poruka);
 	}
 }

@@ -1,8 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -53,8 +51,8 @@ public class Licitacija implements Serializable {
 		return this.datumLicitacije;
 	}
 
-	public void setDatumLicitacije() {
-		this.datumLicitacije = new Date();
+	public void setDatumLicitacije(Date date) {
+		this.datumLicitacije = date;
 	}
 
 	public byte getPobedio() {

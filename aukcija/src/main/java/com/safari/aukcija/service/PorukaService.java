@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.safari.aukcija.repository.PorukaRepository;
 
+import model.Korisnik;
 import model.Poruka;
 
 @Service
@@ -19,6 +20,9 @@ public class PorukaService {
 		return porukaRepository.save(p);
 	}
 	
+	public List<Poruka> getByKorisnik(Korisnik k){
+		return porukaRepository.getByIdPosiljaoca(k.getIdKorisnik());
+	}
 	public List<Poruka> getAll (){
 		return porukaRepository.findAll();
 	}
