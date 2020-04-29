@@ -34,12 +34,7 @@ public class KorisnikService {
 	}
 	
 	public Korisnik findByUsername(String username) {
-<<<<<<< HEAD
-		return kategorijaRepository.findByUsername(username);
-=======
-		// TODO Auto-generated method stub
 		return korisnikRepository.findByUsername(username);
->>>>>>> 9dc3e9ac435b9d775305e51805eca9731eb7d3ac
 	}
 	
 }

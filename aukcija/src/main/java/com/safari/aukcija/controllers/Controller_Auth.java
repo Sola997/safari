@@ -103,6 +103,27 @@ public class Controller_Auth {
 		Kategorija kategorija = kategorijaService.getById(idKategorija);
 		return predmetService.getByKategorija(kategorija);
 	}
+	
+	@RequestMapping(value = "/getUserByUserName", method = RequestMethod.GET, produces = "application/json")
+	public Korisnik getUserByUserName(@RequestParam("userName") String userName) {
+		return korisnikService.findByUsername(userName);
+	}
+	
+	
+	@RequestMapping(value = "/getOcenaByID" ,method = RequestMethod.GET) 
+	public List<Ocena> getOcenaByID(@RequestParam("idKorisnik")Integer idKorisnik) {
+		return ocenaRepository.getByKorisnik(idKorisnik);
+	}
+	 
+	@RequestMapping(value = "/getOcenaByUsername",method = RequestMethod.GET)
+	public List<Ocena> getOcenaByUsername(@RequestParam("username") String username){
+		return ocenaRepository.getByUsername(username);
+	}
+  
+	@RequestMapping(value = "/getOcenaByCurrentUser",method = RequestMethod.GET)
+	public List<Ocena> getOcenaByCurrentUser(Principal currUser){
+		return ocenaRepository.getByUsername(currUser.getName());
+	}
 
 	// save
 
@@ -173,26 +194,5 @@ public class Controller_Auth {
 		o.setKorisnik(korisnik);
 		return ocenaService.addOcena(o);
 
-	}
-
-	@RequestMapping(value = "/getUserByUserName", method = RequestMethod.GET, produces = "application/json")
-	public Korisnik getUserByUserName(@RequestParam("userName") String userName) {
-		return korisnikService.findByUsername(userName);
-	}
-	
-	
-	@RequestMapping(value = "/getOcenaByID" ,method = RequestMethod.GET) 
-	public List<Ocena> getOcenaByID(@RequestParam("idKorisnik")Integer idKorisnik) {
-		return ocenaRepository.getByKorisnik(idKorisnik);
-	}
-	 
-	@RequestMapping(value = "/getOcenaByUsername",method = RequestMethod.GET)
-	public List<Ocena> getOcenaByUsername(@RequestParam("username") String username){
-		return ocenaRepository.getByUsername(username);
-	}
-  
-	@RequestMapping(value = "/getOcenaByCurrentUser",method = RequestMethod.GET)
-	public List<Ocena> getOcenaByCurrentUser(Principal currUser){
-		return ocenaRepository.getByUsername(currUser.getName());
 	}
 }

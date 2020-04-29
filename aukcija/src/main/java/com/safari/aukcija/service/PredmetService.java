@@ -36,6 +36,7 @@ public class PredmetService {
 	public List<Predmet> getByKategorija(Kategorija k){
 		return predmetRepository.findByKategorija(k);
 	}
+	
 	public Slika saveFile(MultipartFile imageFile) {
 		String folder = "/photos/";
 		try {
