@@ -28,6 +28,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
 		UserDetailsImpl userDetails =new UserDetailsImpl();
 		userDetails.setUsername(user.getUsername());
 		userDetails.setPassword(user.getPassword());
+		userDetails.setUloga(user.getUloga());
 		
 		return userDetails;
 	}

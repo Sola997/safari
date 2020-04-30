@@ -11,4 +11,6 @@ public interface PorukaRepository extends JpaRepository<Poruka, Integer> {
 
 	List<Poruka> getByKorisnik1(Korisnik k);
 
+	List<Poruka> getByKorisnik2(Korisnik k);
+
 }

@@ -21,7 +21,14 @@ public class PorukaService {
 	}
 	
 	public List<Poruka> getByKorisnik(Korisnik k){
-		return porukaRepository.getByKorisnik1(k);
+		List<Poruka> sent = porukaRepository.getByKorisnik1(k);
+		List<Poruka> inbox = porukaRepository.getByKorisnik2(k);
+		if(sent != null) {
+			sent.addAll(inbox);
+		}else {
+			return inbox;
+		}
+		return sent;
 	}
 	public List<Poruka> getAll(){
 		return porukaRepository.findAll();

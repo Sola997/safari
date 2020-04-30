@@ -127,8 +127,8 @@ public class Controller_Auth {
 	
 	@RequestMapping(value = "/getPorukeByCurrentUser", method = RequestMethod.GET)
 	public List<Poruka> getPorukeByCurrentUser(Principal principal) {
-		Korisnik user = korisnikService.findByUsername(principal.getName());
-		return porukaService.getByKorisnik(user);
+		Korisnik korisnik = korisnikService.findByUsername(principal.getName());
+		return porukaService.getByKorisnik(korisnik);
 	}
 
 	// save
@@ -204,12 +204,12 @@ public class Controller_Auth {
 	}
 
 	@RequestMapping(value="savePoruka", method = RequestMethod.POST, produces = "application/json")
-	public Poruka savePoruka(@RequestParam("idKorisnik") Integer idKorisnik, @RequestParam("text") String text, Principal principal) {
+	public Poruka savePoruka(@RequestParam("idKorisnik") Integer idKorisnik2, @RequestParam("text") String text, Principal principal) {
 		Poruka poruka = new Poruka();
 		poruka.setDatum(new Date());
 		poruka.setTekstPoruke(text);
 		Korisnik korisnik1 = korisnikService.findByUsername(principal.getName());
-		Korisnik korisnik2 = korisnikService.findById(idKorisnik);
+		Korisnik korisnik2 = korisnikService.findById(idKorisnik2);
 		poruka.setKorisnik1(korisnik1);
 		poruka.setKorisnik2(korisnik2);
 		return porukaService.addPoruka(poruka);

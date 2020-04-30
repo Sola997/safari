@@ -32,4 +32,9 @@ public class Controller_Unauth {
 		korisnik.setUloga(uloga);
 		return korisnikService.addKorisnik(korisnik);
 	}
+	
+	@RequestMapping(value = "loginFaliure", method = RequestMethod.POST, produces = "application/json")
+	public boolean loginFaliure() {
+		return false;
+	}
 }

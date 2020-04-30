@@ -6,10 +6,13 @@ import java.util.Collection;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import model.Uloga;
+
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
+	private Uloga uloga;
 
 	public UserDetailsImpl() {
 
@@ -18,7 +21,7 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public Collection<SimpleGrantedAuthority> getAuthorities() {
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-
+		authorities.add(new SimpleGrantedAuthority("ROLE_" + uloga.getNazivUloge().toUpperCase()));
 		return authorities;
 	}
 
@@ -65,5 +68,14 @@ public class UserDetailsImpl implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Uloga getUloga() {
+		return uloga;
+	}
+
+	public void setUloga(Uloga uloga) {
+		this.uloga = uloga;
+	}
+	
 
 }

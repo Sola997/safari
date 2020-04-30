@@ -26,10 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.httpBasic().and().authorizeRequests()
-		.antMatchers("/auth/**").authenticated()
-		.antMatchers("/security/**").authenticated()
+		.antMatchers("/auth/**").hasAnyRole("ADMIN","USER")
+		.antMatchers("/security/**").hasAnyRole("ADMIN","USER")
 		.anyRequest().permitAll()
 				.and().formLogin().loginProcessingUrl("/login")
-				.defaultSuccessUrl("/security/loginSuccess").failureForwardUrl("/security/loginFaliure");
+				.defaultSuccessUrl("/security/loginSuccess").failureForwardUrl("/loginFaliure");
 	}
 }

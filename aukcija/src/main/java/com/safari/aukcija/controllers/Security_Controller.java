@@ -25,11 +25,6 @@ public class Security_Controller {
 		return true;
 	}
 
-	@RequestMapping(value = "loginFaliure", method = RequestMethod.POST, produces = "application/json")
-	public boolean loginFaliure() {
-		return false;
-	}
-
 	@RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET, produces = "application/json")
 	public Korisnik getCurrentUser(Principal p) {
 		String username = p.getName();
