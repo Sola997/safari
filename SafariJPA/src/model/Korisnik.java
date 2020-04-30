@@ -29,6 +29,10 @@ public class Korisnik implements Serializable {
 
 	private String username;
 
+	//bi-directional many-to-one association to Uloga
+	@ManyToOne
+	private Uloga uloga;
+
 	//bi-directional many-to-one association to Licitacija
 	@OneToMany(mappedBy="korisnik")
 	@Transient
@@ -103,6 +107,14 @@ public class Korisnik implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Uloga getUloga() {
+		return this.uloga;
+	}
+
+	public void setUloga(Uloga uloga) {
+		this.uloga = uloga;
 	}
 
 	public List<Licitacija> getLicitacijas() {

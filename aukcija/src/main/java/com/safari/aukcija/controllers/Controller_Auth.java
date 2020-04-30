@@ -28,7 +28,6 @@ import model.Licitacija;
 import model.LicitacijaPK;
 import model.Ocena;
 import model.Poruka;
-import model.PorukaPK;
 import model.Predmet;
 import model.Slika;
 
@@ -208,17 +207,11 @@ public class Controller_Auth {
 	public Poruka savePoruka(@RequestParam("idKorisnik") Integer idKorisnik, @RequestParam("text") String text, Principal principal) {
 		Poruka poruka = new Poruka();
 		poruka.setDatum(new Date());
-		poruka.setPoruka(text);
+		poruka.setTekstPoruke(text);
 		Korisnik korisnik1 = korisnikService.findByUsername(principal.getName());
 		Korisnik korisnik2 = korisnikService.findById(idKorisnik);
-		poruka.setIdPosiljaoca(korisnik1.getIdKorisnik());
 		poruka.setKorisnik1(korisnik1);
 		poruka.setKorisnik2(korisnik2);
-		PorukaPK pk = new PorukaPK();
-		pk.setIdKupca(korisnik1.getIdKorisnik());
-		pk.setIdProdavca(korisnik2.getIdKorisnik());
-		poruka.setId(pk);
-		
 		return porukaService.addPoruka(poruka);
 	}
 }

@@ -14,37 +14,34 @@ import java.util.Date;
 public class Poruka implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private PorukaPK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int idPoruka;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date datum;
 
-	private int idPosiljaoca;
-
-	private String poruka;
+	private String tekstPoruke;
 
 	//bi-directional many-to-one association to Korisnik
 	@ManyToOne
-	@MapsId("idProdavca")
-	@JoinColumn(name="idProdavca")
+	@JoinColumn(name="idKorisnik1")
 	private Korisnik korisnik1;
 
 	//bi-directional many-to-one association to Korisnik
 	@ManyToOne
-	@MapsId("idKupca")
-	@JoinColumn(name="idKupca")
+	@JoinColumn(name="idKorisnik2")
 	private Korisnik korisnik2;
 
 	public Poruka() {
 	}
 
-	public PorukaPK getId() {
-		return this.id;
+	public int getIdPoruka() {
+		return this.idPoruka;
 	}
 
-	public void setId(PorukaPK id) {
-		this.id = id;
+	public void setIdPoruka(int idPoruka) {
+		this.idPoruka = idPoruka;
 	}
 
 	public Date getDatum() {
@@ -55,20 +52,12 @@ public class Poruka implements Serializable {
 		this.datum = datum;
 	}
 
-	public int getIdPosiljaoca() {
-		return this.idPosiljaoca;
+	public String getTekstPoruke() {
+		return this.tekstPoruke;
 	}
 
-	public void setIdPosiljaoca(int idPosiljaoca) {
-		this.idPosiljaoca = idPosiljaoca;
-	}
-
-	public String getPoruka() {
-		return this.poruka;
-	}
-
-	public void setPoruka(String poruka) {
-		this.poruka = poruka;
+	public void setTekstPoruke(String tekstPoruke) {
+		this.tekstPoruke = tekstPoruke;
 	}
 
 	public Korisnik getKorisnik1() {

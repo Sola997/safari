@@ -21,9 +21,9 @@ public class PorukaService {
 	}
 	
 	public List<Poruka> getByKorisnik(Korisnik k){
-		return porukaRepository.getByIdPosiljaoca(k.getIdKorisnik());
+		return porukaRepository.getByKorisnik1(k);
 	}
-	public List<Poruka> getAll (){
+	public List<Poruka> getAll(){
 		return porukaRepository.findAll();
 	}
 }

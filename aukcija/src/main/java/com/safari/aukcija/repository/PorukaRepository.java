@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import model.Korisnik;
 import model.Poruka;
 
 public interface PorukaRepository extends JpaRepository<Poruka, Integer> {
 
-	List<Poruka> getByIdPosiljaoca(int idKorisnik);
+	List<Poruka> getByKorisnik1(Korisnik k);
 
 }

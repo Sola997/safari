@@ -7,14 +7,8 @@
 		<class>model.LicitacijaPK</class>
 		<class>model.Ocena</class>
 		<class>model.Poruka</class>
-		<class>model.PorukaPK</class>
 		<class>model.Predmet</class>
 		<class>model.Slika</class>
-		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mydb"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="marko997"/>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-		</properties>
+		<class>model.Uloga</class>
 	</persistence-unit>
 </persistence>

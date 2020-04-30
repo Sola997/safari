@@ -12,7 +12,20 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+-- -----------------------------------------------------
+-- Schema safari_schema
+-- -----------------------------------------------------
 USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Uloga`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Uloga` (
+  `idUloga` INT NOT NULL AUTO_INCREMENT,
+  `nazivUloge` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`idUloga`))
+ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Korisnik`
@@ -24,8 +37,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Korisnik` (
   `imeKorisnika` VARCHAR(100) NOT NULL,
   `prezimeKorisnika` VARCHAR(100) NOT NULL,
   `e-mail` VARCHAR(255) NULL,
+  `Uloga_idUloga` INT NOT NULL,
   PRIMARY KEY (`idKorisnik`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
+  INDEX `fk_Korisnik_Uloga1_idx` (`Uloga_idUloga` ASC) VISIBLE,
+  CONSTRAINT `fk_Korisnik_Uloga1`
+    FOREIGN KEY (`Uloga_idUloga`)
+    REFERENCES `mydb`.`Uloga` (`idUloga`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -63,31 +83,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Predmet` (
   CONSTRAINT `fk_Predmet_Kategorija1`
     FOREIGN KEY (`Kategorija_idKategorija`)
     REFERENCES `mydb`.`Kategorija` (`idKategorija`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`Poruka`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Poruka` (
-  `idProdavca` INT NOT NULL,
-  `idKupca` INT NOT NULL,
-  `poruka` VARCHAR(255) NOT NULL,
-  `datum` DATETIME NOT NULL,
-  `idPosiljaoca` INT NOT NULL,
-  PRIMARY KEY (`idProdavca`, `idKupca`),
-  INDEX `fk_Korisnik_has_Korisnik_Korisnik1_idx` (`idKupca` ASC) VISIBLE,
-  INDEX `fk_Korisnik_has_Korisnik_Korisnik_idx` (`idProdavca` ASC) VISIBLE,
-  CONSTRAINT `fk_Korisnik_has_Korisnik_Korisnik`
-    FOREIGN KEY (`idProdavca`)
-    REFERENCES `mydb`.`Korisnik` (`idKorisnik`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Korisnik_has_Korisnik_Korisnik1`
-    FOREIGN KEY (`idKupca`)
-    REFERENCES `mydb`.`Korisnik` (`idKorisnik`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -153,6 +148,43 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Ocena` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Poruka`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Poruka` (
+  `idPoruka` INT NOT NULL AUTO_INCREMENT,
+  `tekstPoruke` VARCHAR(255) NULL,
+  `idKorisnik1` INT NOT NULL,
+  `idKorisnik2` INT NOT NULL,
+  `datum` DATETIME NULL,
+  PRIMARY KEY (`idPoruka`),
+  INDEX `fk_Poruka_Korisnik1_idx` (`idKorisnik1` ASC) VISIBLE,
+  INDEX `fk_Poruka_Korisnik2_idx` (`idKorisnik2` ASC) VISIBLE,
+  CONSTRAINT `fk_Poruka_Korisnik1`
+    FOREIGN KEY (`idKorisnik1`)
+    REFERENCES `mydb`.`Korisnik` (`idKorisnik`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Poruka_Korisnik2`
+    FOREIGN KEY (`idKorisnik2`)
+    REFERENCES `mydb`.`Korisnik` (`idKorisnik`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE USER 'user1' IDENTIFIED BY 'sola123';
+
+GRANT ALL ON `mydb`.* TO 'user1';
+GRANT ALL ON `safari_schema`.* TO 'user1';
+GRANT SELECT ON TABLE `mydb`.* TO 'user1';
+GRANT SELECT ON TABLE `safari_schema`.* TO 'user1';
+GRANT SELECT, INSERT, TRIGGER ON TABLE `mydb`.* TO 'user1';
+GRANT SELECT, INSERT, TRIGGER ON TABLE `safari_schema`.* TO 'user1';
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `mydb`.* TO 'user1';
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `safari_schema`.* TO 'user1';
+GRANT EXECUTE ON ROUTINE `mydb`.* TO 'user1';
+GRANT EXECUTE ON ROUTINE `safari_schema`.* TO 'user1';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
