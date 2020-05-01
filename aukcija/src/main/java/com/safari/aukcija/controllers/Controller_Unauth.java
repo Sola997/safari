@@ -28,7 +28,7 @@ public class Controller_Unauth {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST,  consumes ="application/json", produces = "application/json")
 	public Korisnik saveKorisnik(@RequestBody Korisnik korisnik, @RequestParam("idUloga") Integer idUloga) {
-		Uloga uloga = ulogaService.findById(idUloga);
+		Uloga uloga = ulogaService.getById(idUloga);
 		korisnik.setUloga(uloga);
 		return korisnikService.addKorisnik(korisnik);
 	}

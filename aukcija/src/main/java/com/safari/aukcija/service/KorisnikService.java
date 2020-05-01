@@ -28,12 +28,12 @@ public class KorisnikService {
 		 return korisnikRepository.findAll();
 	}
 	
-	public Korisnik findById(Integer idKorisnik) {
+	public Korisnik getById(Integer idKorisnik) {
 		// TODO Auto-generated method stub
 		return korisnikRepository.findById(idKorisnik).orElse(null);
 	}
 	
-	public Korisnik findByUsername(String username) {
+	public Korisnik getByUsername(String username) {
 		return korisnikRepository.findByUsername(username);
 	}
 	

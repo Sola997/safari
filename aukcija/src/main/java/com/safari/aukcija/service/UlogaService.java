@@ -11,7 +11,7 @@ import model.Uloga;
 public class UlogaService {
 	@Autowired
 	UlogaRepository ulogaRepository;
-	public Uloga findById(Integer idUloga) {
+	public Uloga getById(Integer idUloga) {
 		// TODO Auto-generated method stub
 		return ulogaRepository.findById(idUloga).orElse(null);
 	}

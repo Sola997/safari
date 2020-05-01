@@ -21,7 +21,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Korisnik user = korisnikService.findByUsername(username);
+		Korisnik user = korisnikService.getByUsername(username);
 		if(user == null) {
 			throw new UsernameNotFoundException("User 404");
 		}

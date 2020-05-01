@@ -13,4 +13,6 @@ public interface PorukaRepository extends JpaRepository<Poruka, Integer> {
 
 	List<Poruka> getByKorisnik2(Korisnik k);
 
+	List<Poruka> findByKorisnik1AndKorisnik2(Korisnik k1, Korisnik k2);
+
 }

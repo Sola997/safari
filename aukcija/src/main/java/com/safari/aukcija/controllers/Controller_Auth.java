@@ -3,6 +3,7 @@ package com.safari.aukcija.controllers;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -107,7 +108,7 @@ public class Controller_Auth {
 
 	@RequestMapping(value = "/getUserByUserName", method = RequestMethod.GET, produces = "application/json")
 	public Korisnik getUserByUserName(@RequestParam("userName") String userName) {
-		return korisnikService.findByUsername(userName);
+		return korisnikService.getByUsername(userName);
 	}
 
 	@RequestMapping(value = "/getOcenaByID", method = RequestMethod.GET)
@@ -125,12 +126,29 @@ public class Controller_Auth {
 		return ocenaRepository.getByUsername(currUser.getName());
 	}
 	
-	@RequestMapping(value = "/getPorukeByCurrentUser", method = RequestMethod.GET)
-	public List<Poruka> getPorukeByCurrentUser(Principal principal) {
-		Korisnik korisnik = korisnikService.findByUsername(principal.getName());
-		return porukaService.getByKorisnik(korisnik);
+	@RequestMapping(value = "/getPorukeWithKorisnik", method = RequestMethod.GET)
+	public List<Poruka> getPorukeByCurrentUser(@RequestParam("idKorisnik") Integer idKorisnik, Principal principal) {
+		Korisnik k1 = korisnikService.getByUsername(principal.getName());
+		Korisnik k2 = korisnikService.getById(idKorisnik);
+		// najstarija poruka prva
+		return porukaService.getPorukeWithKorisnik(k1,k2)
+				.stream()
+				.sorted((p1,p2)->p1.getDatum().compareTo(p2.getDatum()))
+				.collect(Collectors.toList());
 	}
-
+	
+	@RequestMapping(value = "/getInbox", method = RequestMethod.GET)
+	public List<Korisnik> getInbox(Principal principal){
+		Korisnik korisnik = korisnikService.getByUsername(principal.getName());
+		List<Poruka> poruke = porukaService.getByKorisnik(korisnik);
+		// poslednji korisnik sa kojim je razgovarao ide prvi
+		List<Korisnik> korisnici = poruke.stream()
+				.sorted((p1,p2)->p2.getDatum().compareTo(p1.getDatum()))
+				.map(p -> (p.getKorisnik1().getIdKorisnik() == korisnik.getIdKorisnik())? p.getKorisnik2() : p.getKorisnik1())
+				.distinct()
+				.collect(Collectors.toList());
+		return korisnici;
+	}
 	// save
 
 	@RequestMapping(value = "/saveKategorija", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
@@ -145,7 +163,7 @@ public class Controller_Auth {
 		if (kategorija != null) {
 			predmet.setKategorija(kategorija);
 		}
-		Korisnik korisnik = korisnikService.findByUsername(currentUser.getName());
+		Korisnik korisnik = korisnikService.getByUsername(currentUser.getName());
 		predmet.setKorisnik(korisnik);
 		return predmetService.addPredmet(predmet);
 	}
@@ -171,7 +189,7 @@ public class Controller_Auth {
 		if (predmet == null) {
 			return null;
 		}
-		Korisnik korisnik = korisnikService.findByUsername(currentUser.getName());
+		Korisnik korisnik = korisnikService.getByUsername(currentUser.getName());
 		if (korisnik.getIdKorisnik() == predmet.getKorisnik().getIdKorisnik()) {
 			return null;
 		}
@@ -191,7 +209,7 @@ public class Controller_Auth {
 	@RequestMapping(value = "/saveOcena", method = RequestMethod.POST, produces = "application/json")
 	public Ocena saveKomnetarIOcenu(@RequestParam("ocena") Integer ocena, @RequestParam("komentar") String komentar,
 			@RequestParam("idKorisnik") Integer idKorisnik) {
-		Korisnik korisnik = korisnikService.findById(idKorisnik);
+		Korisnik korisnik = korisnikService.getById(idKorisnik);
 		if (korisnik == null) {
 			return null;
 		}
@@ -208,8 +226,8 @@ public class Controller_Auth {
 		Poruka poruka = new Poruka();
 		poruka.setDatum(new Date());
 		poruka.setTekstPoruke(text);
-		Korisnik korisnik1 = korisnikService.findByUsername(principal.getName());
-		Korisnik korisnik2 = korisnikService.findById(idKorisnik2);
+		Korisnik korisnik1 = korisnikService.getByUsername(principal.getName());
+		Korisnik korisnik2 = korisnikService.getById(idKorisnik2);
 		poruka.setKorisnik1(korisnik1);
 		poruka.setKorisnik2(korisnik2);
 		return porukaService.addPoruka(poruka);

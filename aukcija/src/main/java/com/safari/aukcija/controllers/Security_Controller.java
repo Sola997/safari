@@ -28,7 +28,7 @@ public class Security_Controller {
 	@RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET, produces = "application/json")
 	public Korisnik getCurrentUser(Principal p) {
 		String username = p.getName();
-		Korisnik k = korisnikService.findByUsername(username);
+		Korisnik k = korisnikService.getByUsername(username);
 		return k;
 	}
 }
