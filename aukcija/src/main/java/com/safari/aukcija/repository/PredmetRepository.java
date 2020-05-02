@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import model.Kategorija;
+import model.Korisnik;
 import model.Predmet;
 
 public interface PredmetRepository extends JpaRepository<Predmet, Integer> {
@@ -15,4 +16,6 @@ public interface PredmetRepository extends JpaRepository<Predmet, Integer> {
 
 	@Query("SELECT p FROM Predmet p INNER JOIN p.kategorija k where k.nazivKategorije='nazivKategorije'")
 	List<Predmet> predmetPoKategoriji(@Param("nazivKategorije") Kategorija nazivKategorije );
+
+	List<Predmet> findByKorisnik(Korisnik korisnik);
 }

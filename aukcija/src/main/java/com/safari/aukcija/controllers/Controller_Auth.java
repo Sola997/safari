@@ -149,6 +149,14 @@ public class Controller_Auth {
 				.collect(Collectors.toList());
 		return korisnici;
 	}
+	
+	@RequestMapping(value = "/getZavrseneAukcijeByCurrentUser", method = RequestMethod.GET, produces = "application/json")
+	public List<Predmet> getNotification(Principal principal) {
+		Korisnik korisnik = korisnikService.getByUsername(principal.getName());
+		List<Predmet> predmeti = predmetService.getByKorisnik(korisnik);
+		Date sada = new Date();
+		return predmeti.stream().filter(p -> p.getKrajAukcije().before(sada)).collect(Collectors.toList());
+	}
 	// save
 
 	@RequestMapping(value = "/saveKategorija", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")

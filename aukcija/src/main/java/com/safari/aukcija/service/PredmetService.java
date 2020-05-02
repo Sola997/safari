@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.safari.aukcija.repository.PredmetRepository;
 
 import model.Kategorija;
+import model.Korisnik;
 import model.Predmet;
 import model.Slika;
 
@@ -51,5 +52,9 @@ public class PredmetService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	public List<Predmet> getByKorisnik(Korisnik korisnik) {
+		return predmetRepository.findByKorisnik(korisnik);
+		
 	}
 }
