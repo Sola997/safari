@@ -30,6 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/security/**").hasAnyRole("ADMIN","USER")
 		.anyRequest().permitAll()
 				.and().formLogin().loginProcessingUrl("/login")
-				.defaultSuccessUrl("/security/loginSuccess").failureForwardUrl("/loginFaliure");
+				.defaultSuccessUrl("/unauth/loginSuccess").failureForwardUrl("/unauth/loginFaliure");
 	}
 }

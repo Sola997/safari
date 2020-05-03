@@ -37,4 +37,9 @@ public class Controller_Unauth {
 	public boolean loginFaliure() {
 		return false;
 	}
+	
+	@RequestMapping(value = "loginSuccess", method = RequestMethod.GET, produces = "application/json")
+	public boolean loginSuccess() {
+		return true;
+	}
 }

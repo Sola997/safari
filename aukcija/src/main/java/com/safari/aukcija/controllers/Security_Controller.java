@@ -20,11 +20,6 @@ public class Security_Controller {
 	@Autowired
 	KorisnikService korisnikService;
 
-	@RequestMapping(value = "loginSuccess", method = RequestMethod.GET, produces = "application/json")
-	public boolean loginSuccess() {
-		return true;
-	}
-
 	@RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET, produces = "application/json")
 	public Korisnik getCurrentUser(Principal p) {
 		String username = p.getName();
