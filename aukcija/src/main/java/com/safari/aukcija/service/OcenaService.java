@@ -23,4 +23,14 @@ public class OcenaService {
 		 return ocenaRepository.findAll();
 	}
 	
+	public static double prosek(Integer ocena) {
+		int sum=0;
+		double rait;
+		int i=0;
+		for(i=0;i<ocena.SIZE;i++) {
+			sum= sum + ocena;
+		}
+		rait= sum /i;
+		return rait;
+	}
 }

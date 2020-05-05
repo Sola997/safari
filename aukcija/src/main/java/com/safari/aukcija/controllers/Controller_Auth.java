@@ -244,4 +244,13 @@ public class Controller_Auth {
 		poruka.setKorisnik2(korisnik2);
 		return porukaService.addPoruka(poruka);
 	}
+	
+	@RequestMapping(value = "prosekOcena", method = RequestMethod.GET, produces = "application/json")
+	public double prosekOcena(@RequestParam("ocena") Integer ocena, Principal currUser) {
+		Korisnik korisnik= korisnikService.getByUsername(currUser.getName());
+		Ocena o = new Ocena();
+		o.setKorisnik(korisnik);
+		return ocenaService.prosek(ocena);
+		
+	}
 }
