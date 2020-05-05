@@ -1,5 +1,6 @@
 package com.safari.aukcija.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import com.safari.aukcija.repository.PorukaRepository;
 
 import model.Korisnik;
 import model.Poruka;
+import model.Predmet;
 
 @Service
 public class PorukaService {
@@ -18,6 +20,16 @@ public class PorukaService {
 
 	public Poruka addPoruka(Poruka p) {
 		return porukaRepository.save(p);
+	}
+
+	public void addNotification(Korisnik k, Predmet p) {
+		Poruka poruka = new Poruka();
+		poruka.setKorisnik1(k);
+		poruka.setKorisnik2(k);
+		poruka.setDatum(new Date());
+		poruka.setTekstPoruke(
+				"Vasa licitacija za predmet " + p.getIdPredmet() + ": " + p.getNazivPredmeta() + " je zavrsena.");
+		this.addPoruka(poruka);
 	}
 
 	public List<Poruka> getByKorisnik(Korisnik k) {
@@ -32,14 +44,18 @@ public class PorukaService {
 	}
 
 	public List<Poruka> getPorukeWithKorisnik(Korisnik k1, Korisnik k2) {
-		List<Poruka> sent = porukaRepository.findByKorisnik1AndKorisnik2(k1,k2);
-		List<Poruka> inbox = porukaRepository.findByKorisnik1AndKorisnik2(k2,k1);
+		List<Poruka> sent = porukaRepository.findByKorisnik1AndKorisnik2(k1, k2);
+		List<Poruka> inbox = porukaRepository.findByKorisnik1AndKorisnik2(k2, k1);
 		if (sent != null) {
 			sent.addAll(inbox);
 		} else {
 			return inbox;
 		}
 		return sent;
+	}
+
+	public List<Poruka> getNotifications(Korisnik k) {
+		return porukaRepository.findByKorisnik1AndKorisnik2(k, k);
 	}
 
 	public List<Poruka> getAll() {

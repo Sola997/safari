@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,12 @@ public class PredmetService {
 	
 	public List<Predmet> getByKategorija(Kategorija k){
 		return predmetRepository.findByKategorija(k);
+	}
+	
+	public List<Predmet> getZavrseneAukcijeByKorisnik(Korisnik k){
+		List<Predmet> predmeti = this.getByKorisnik(k);
+		Date sada = new Date();
+		return predmeti.stream().filter(p -> p.getStatus() == (byte)0 && p.getKrajAukcije().before(sada)).collect(Collectors.toList());
 	}
 	
 	public Slika saveFile(MultipartFile imageFile) {

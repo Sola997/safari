@@ -143,19 +143,23 @@ public class Controller_Auth {
 		List<Poruka> poruke = porukaService.getByKorisnik(korisnik);
 		// poslednji korisnik sa kojim je razgovarao ide prvi
 		List<Korisnik> korisnici = poruke.stream()
-				.sorted((p1,p2)->p2.getDatum().compareTo(p1.getDatum()))
+				.sorted((p1,p2)->(p2.getDatum() != null && p1.getDatum() != null) ? (p2.getDatum().compareTo(p1.getDatum())) : (p2.getIdPoruka() - p1.getIdPoruka()))
 				.map(p -> (p.getKorisnik1().getIdKorisnik() == korisnik.getIdKorisnik())? p.getKorisnik2() : p.getKorisnik1())
 				.distinct()
+				.filter(k -> k.getIdKorisnik() != korisnik.getIdKorisnik())
 				.collect(Collectors.toList());
 		return korisnici;
 	}
 	
-	@RequestMapping(value = "/getZavrseneAukcijeByCurrentUser", method = RequestMethod.GET, produces = "application/json")
-	public List<Predmet> getNotification(Principal principal) {
+	@RequestMapping(value = "/getNotifications", method = RequestMethod.GET, produces = "application/json")
+	public List<Poruka> getNotifications(Principal principal) {
 		Korisnik korisnik = korisnikService.getByUsername(principal.getName());
-		List<Predmet> predmeti = predmetService.getByKorisnik(korisnik);
-		Date sada = new Date();
-		return predmeti.stream().filter(p -> p.getKrajAukcije().before(sada)).collect(Collectors.toList());
+		List<Predmet> predmeti = predmetService.getZavrseneAukcijeByKorisnik(korisnik);
+		for(Predmet p : predmeti) {
+			p.setStatus((byte) 1);
+			porukaService.addNotification(korisnik, p);
+		}
+		return porukaService.getNotifications(korisnik);
 	}
 	// save
 
