@@ -29,7 +29,7 @@ public class LicitacijaService {
 	
 	public boolean izaberiPobednika(int ponuda, Predmet predmet) {
 		List<Licitacija> licitacije = licitacijaRepository.findByPredmet(predmet);
-		Licitacija pobednik = licitacijaRepository.findByPobedio((byte) 1).orElse(null);
+		Licitacija pobednik = this.getPobednickaLicitacija(predmet);
 		if(licitacije == null || (pobednik != null && pobednik.getPonuda() < ponuda)) {
 			pobednik.setPobedio((byte) 0);
 			licitacijaRepository.save(pobednik);
@@ -52,10 +52,15 @@ public class LicitacijaService {
 				licitacijaRepository.save(maxLicitacija);
 			}
 		}
+		// ^^
 		return false;
 	}
 	
 	public List<Licitacija> getAll() {
 		 return licitacijaRepository.findAll();
+	}
+
+	public Licitacija getPobednickaLicitacija(Predmet predmet) {
+		return licitacijaRepository.findByPredmetAndPobedio(predmet,(byte) 1).orElse(null);
 	}
 }

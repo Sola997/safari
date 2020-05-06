@@ -170,4 +170,10 @@ public class Predmet implements Serializable {
 		return slika;
 	}
 
+	@Override
+	public String toString() {
+		return "idPredmet=" + idPredmet + ", nazivPredmeta=" + nazivPredmeta + ", pocetnaCena=" + pocetnaCena;
+	}
+	
+
 }

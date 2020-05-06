@@ -227,4 +227,10 @@ public class Korisnik implements Serializable {
 		return predmet;
 	}
 
+	@Override
+	public String toString() {
+		return "imeKorisnika=" + imeKorisnika + ", prezimeKorisnika=" + prezimeKorisnika;
+	}
+	
+
 }

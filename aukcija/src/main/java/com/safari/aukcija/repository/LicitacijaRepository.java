@@ -17,4 +17,6 @@ public interface LicitacijaRepository extends JpaRepository<Licitacija, Integer>
 
 	Licitacija findById(LicitacijaPK id);
 
+	Optional<Licitacija> findByPredmetAndPobedio(Predmet predmet, byte b);
+
 }

@@ -87,4 +87,10 @@ public class Licitacija implements Serializable {
 		this.predmet = predmet;
 	}
 
+	@Override
+	public String toString() {
+		return "ponuda=" + ponuda + ", kupac: " + korisnik;
+	}
+	
+
 }

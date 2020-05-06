@@ -157,9 +157,17 @@ public class Controller_Auth {
 		List<Predmet> predmeti = predmetService.getZavrseneAukcijeByKorisnik(korisnik);
 		for(Predmet p : predmeti) {
 			p.setStatus((byte) 1);
-			porukaService.addNotification(korisnik, p);
+			Licitacija pobednickaLicitacija = licitacijaService.getPobednickaLicitacija(p);
+			porukaService.addNotification(korisnik, p, pobednickaLicitacija);
 		}
 		return porukaService.getNotifications(korisnik);
+	}
+	
+	@RequestMapping(value = "/getPobednikaAukcije", method = RequestMethod.GET, produces = "application/json")
+	public Korisnik getPobednikaAukcije(@RequestParam("idPredmeta") Integer idPredmet) {
+		Predmet predmet = predmetService.getById(idPredmet);
+		Licitacija pobednickaLicitacija =  licitacijaService.getPobednickaLicitacija(predmet);
+		return pobednickaLicitacija == null ? null : pobednickaLicitacija.getKorisnik();
 	}
 	// save
 

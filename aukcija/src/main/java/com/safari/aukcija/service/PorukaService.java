@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.safari.aukcija.repository.PorukaRepository;
 
 import model.Korisnik;
+import model.Licitacija;
 import model.Poruka;
 import model.Predmet;
 
@@ -22,13 +23,13 @@ public class PorukaService {
 		return porukaRepository.save(p);
 	}
 
-	public void addNotification(Korisnik k, Predmet p) {
+	public void addNotification(Korisnik k, Predmet p, Licitacija pobednickaLicitacija) {
 		Poruka poruka = new Poruka();
 		poruka.setKorisnik1(k);
 		poruka.setKorisnik2(k);
 		poruka.setDatum(new Date());
 		poruka.setTekstPoruke(
-				"Vasa licitacija za predmet " + p.getIdPredmet() + ": " + p.getNazivPredmeta() + " je zavrsena.");
+				"Vasa licitacija za predmet: " + p + " je zavrsena. Pobednicka licitacija: " + pobednickaLicitacija);
 		this.addPoruka(poruka);
 	}
 
