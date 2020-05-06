@@ -196,23 +196,20 @@ public class Controller_Auth {
 	@RequestMapping(value = "/saveLicitacija", method = RequestMethod.POST, produces = "application/json")
 	public Licitacija saveLicitacija(@RequestParam("ponuda") Integer ponuda,
 			@RequestParam("idPredmet") Integer idPredmet, Principal currentUser) {
-		// Vraca null ako predmet ne postoji ili pripada ulogovanom korisniku
+		// Vraca null ako predmet ne postoji, pripada ulogovanom korisniku ili je aukcija za taj predmet zavrsena
 		Predmet predmet = predmetService.getById(idPredmet);
-		if (predmet == null) {
-			return null;
-		}
 		Korisnik korisnik = korisnikService.getByUsername(currentUser.getName());
-		if (korisnik.getIdKorisnik() == predmet.getKorisnik().getIdKorisnik()) {
+		Date danas = new Date();
+		if (predmet == null || korisnik.getIdKorisnik() == predmet.getKorisnik().getIdKorisnik() || danas.after(predmet.getKrajAukcije())) {
 			return null;
 		}
 		Licitacija licitacija = new Licitacija();
 		LicitacijaPK pk = new LicitacijaPK();
 		pk.setKorisnik_idKorisnik(korisnik.getIdKorisnik());
 		pk.setPredmet_idPredmet(predmet.getIdPredmet());
-		licitacija.setDatumLicitacije(new Date());
+		licitacija.setDatumLicitacije(danas);
 		licitacija.setId(pk);
 		licitacija.setPonuda(ponuda);
-		licitacija.setPobedio((byte) 0);
 		licitacija.setKorisnik(korisnik);
 		licitacija.setPredmet(predmet);
 		return licitacijaService.addLicitacija(licitacija);
