@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import model.Korisnik;
 import model.Ocena;
 
 public interface OcenaRepository extends JpaRepository<Ocena, Integer> {
+	
+	List<Ocena> findByKorisnik(Korisnik korisnik);
 
 	@Query("SELECT o FROM Ocena o where o.korisnik.idKorisnik=:idKorisnik")
 	List<Ocena> getByKorisnik(@Param("idKorisnik") Integer idKorisnik);

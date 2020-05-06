@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.safari.aukcija.repository.OcenaRepository;
 
+import model.Korisnik;
 import model.Ocena;
 
 @Service
@@ -23,14 +24,12 @@ public class OcenaService {
 		 return ocenaRepository.findAll();
 	}
 	
-	public static double prosek(Integer ocena) {
-		int sum=0;
-		double rait;
-		int i=0;
-		for(i=0;i<ocena.SIZE;i++) {
-			sum= sum + ocena;
-		}
-		rait= sum /i;
-		return rait;
+	public double prosek(Korisnik korisnik) {
+		List<Ocena> ocene = this.getOcenaByKorisnik(korisnik);
+		return ocene.stream().mapToInt(o -> o.getOcena()).average().orElse(0);
+	}
+
+	private List<Ocena> getOcenaByKorisnik(Korisnik korisnik) {
+		return ocenaRepository.findByKorisnik(korisnik);
 	}
 }

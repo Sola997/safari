@@ -220,9 +220,10 @@ public class Controller_Auth {
 
 	@RequestMapping(value = "/saveOcena", method = RequestMethod.POST, produces = "application/json")
 	public Ocena saveKomnetarIOcenu(@RequestParam("ocena") Integer ocena, @RequestParam("komentar") String komentar,
-			@RequestParam("idKorisnik") Integer idKorisnik) {
+			@RequestParam("idKorisnik") Integer idKorisnik, Principal p) {
 		Korisnik korisnik = korisnikService.getById(idKorisnik);
-		if (korisnik == null) {
+		Korisnik currentUser = korisnikService.getByUsername(p.getName());
+		if (korisnik == null || idKorisnik == currentUser.getIdKorisnik()) {
 			return null;
 		}
 		Ocena o = new Ocena();
@@ -246,11 +247,9 @@ public class Controller_Auth {
 	}
 	
 	@RequestMapping(value = "prosekOcena", method = RequestMethod.GET, produces = "application/json")
-	public double prosekOcena(@RequestParam("ocena") Integer ocena, Principal currUser) {
+	public double prosekOcena(Principal currUser) {
 		Korisnik korisnik= korisnikService.getByUsername(currUser.getName());
-		Ocena o = new Ocena();
-		o.setKorisnik(korisnik);
-		return ocenaService.prosek(ocena);
+		return ocenaService.prosek(korisnik);
 		
 	}
 }
