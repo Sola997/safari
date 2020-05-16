@@ -27,7 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.httpBasic().and().authorizeRequests()
 		.antMatchers("/auth/**").hasAnyRole("ADMIN","USER")
-		.antMatchers("/security/**").hasAnyRole("ADMIN","USER")
 		.anyRequest().permitAll()
 				.and().formLogin().loginProcessingUrl("/login")
 				.defaultSuccessUrl("/unauth/loginSuccess").failureForwardUrl("/unauth/loginFaliure");

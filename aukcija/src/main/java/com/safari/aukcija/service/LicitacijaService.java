@@ -35,7 +35,6 @@ public class LicitacijaService {
 			licitacijaRepository.save(pobednik);
 			return true;
 		}
-		// pitati da li treba, jer se nikada nece desiti
 		if(pobednik == null) {
 			int max = 0;
 			Licitacija maxLicitacija = null;

@@ -24,34 +24,36 @@ public class PredmetService {
 
 	@Autowired
 	PredmetRepository predmetRepository;
-	
+
 	public Predmet addPredmet(Predmet p) {
 		return predmetRepository.save(p);
 	}
+
 	public Predmet getById(Integer idPredmet) {
 		return predmetRepository.findById(idPredmet).orElse(null);
 	}
-	
-	public List<Predmet> getAll(){
+
+	public List<Predmet> getAll() {
 		return predmetRepository.findAll();
 	}
-	
-	public List<Predmet> getByKategorija(Kategorija k){
-		return predmetRepository.findByKategorija(k);
+
+	public List<Predmet> getByKategorija(Kategorija kategorija) {
+		return predmetRepository.findByKategorija(kategorija);
 	}
-	
-	public List<Predmet> getZavrseneAukcijeByKorisnik(Korisnik k){
+
+	public List<Predmet> getZavrseneAukcijeByKorisnik(Korisnik k) {
 		List<Predmet> predmeti = this.getByKorisnik(k);
 		Date sada = new Date();
-		return predmeti.stream().filter(p -> p.getStatus() == (byte)0 && p.getKrajAukcije().before(sada)).collect(Collectors.toList());
+		return predmeti.stream().filter(p -> p.getStatus() == (byte) 0 && p.getKrajAukcije().before(sada))
+				.collect(Collectors.toList());
 	}
-	
+
 	public Slika saveFile(MultipartFile imageFile) {
 		String folder = "/photos/";
 		try {
 			byte[] bytes = imageFile.getBytes();
 			Path path = Paths.get(folder + imageFile.getOriginalFilename());
-			Files.write(path,bytes);
+			Files.write(path, bytes);
 			Slika slika = new Slika();
 			slika.setIme(imageFile.getOriginalFilename());
 			slika.setPutanja(folder + imageFile.getOriginalFilename());
@@ -61,8 +63,9 @@ public class PredmetService {
 			return null;
 		}
 	}
+
 	public List<Predmet> getByKorisnik(Korisnik korisnik) {
 		return predmetRepository.findByKorisnik(korisnik);
-		
+
 	}
 }
