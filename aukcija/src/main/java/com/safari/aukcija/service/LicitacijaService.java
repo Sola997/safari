@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.safari.aukcija.repository.LicitacijaRepository;
 
+import model.Korisnik;
 import model.Licitacija;
 import model.Predmet;
 
@@ -15,38 +16,38 @@ public class LicitacijaService {
 
 	@Autowired
 	LicitacijaRepository licitacijaRepository;
-	
+
 	public Licitacija addLicitacija(Licitacija l) {
 		Licitacija ista = licitacijaRepository.findById(l.getId());
-		if(ista != null) {
+		if (ista != null) {
 			l.setPobedio(ista.getPobedio());
 		}
-		if(this.izaberiPobednika(l.getPonuda(), l.getPredmet())) {
+		if (this.izaberiPobednika(l.getPonuda(), l.getPredmet())) {
 			l.setPobedio((byte) 1);
 		}
 		return licitacijaRepository.save(l);
 	}
-	
+
 	public boolean izaberiPobednika(int ponuda, Predmet predmet) {
 		List<Licitacija> licitacije = licitacijaRepository.findByPredmet(predmet);
 		Licitacija pobednik = this.getPobednickaLicitacija(predmet);
-		if(licitacije == null || (pobednik != null && pobednik.getPonuda() < ponuda)) {
+		if (licitacije == null || (pobednik != null && pobednik.getPonuda() < ponuda)) {
 			pobednik.setPobedio((byte) 0);
 			licitacijaRepository.save(pobednik);
 			return true;
 		}
-		if(pobednik == null) {
+		if (pobednik == null) {
 			int max = 0;
 			Licitacija maxLicitacija = null;
-			for(Licitacija l : licitacije) {
-				if(l.getPonuda() > max) {
+			for (Licitacija l : licitacije) {
+				if (l.getPonuda() > max) {
 					maxLicitacija = l;
 					max = l.getPonuda();
 				}
 			}
-			if(ponuda > max) {
+			if (ponuda > max) {
 				return true;
-			}else {
+			} else {
 				maxLicitacija.setPobedio((byte) 1);
 				licitacijaRepository.save(maxLicitacija);
 			}
@@ -54,12 +55,20 @@ public class LicitacijaService {
 		// ^^
 		return false;
 	}
-	
+
 	public List<Licitacija> getAll() {
-		 return licitacijaRepository.findAll();
+		return licitacijaRepository.findAll();
 	}
 
 	public Licitacija getPobednickaLicitacija(Predmet predmet) {
-		return licitacijaRepository.findByPredmetAndPobedio(predmet,(byte) 1).orElse(null);
+		return licitacijaRepository.findByPredmetAndPobedio(predmet, (byte) 1).orElse(null);
+	}
+
+	public List<Licitacija> getVictories(Korisnik korisnik) {
+		return licitacijaRepository.findByKorisnikAndPobedio(korisnik, (byte) 1);
+	}
+
+	public List<Licitacija> getLosses(Korisnik korisnik) {
+		return licitacijaRepository.findByKorisnikAndPobedio(korisnik, (byte) 0);
 	}
 }

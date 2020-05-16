@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import model.Korisnik;
 import model.Licitacija;
 import model.LicitacijaPK;
 import model.Predmet;
@@ -18,5 +19,7 @@ public interface LicitacijaRepository extends JpaRepository<Licitacija, Integer>
 	Licitacija findById(LicitacijaPK id);
 
 	Optional<Licitacija> findByPredmetAndPobedio(Predmet predmet, byte b);
+
+	List<Licitacija> findByKorisnikAndPobedio(Korisnik korisnik, byte b);
 
 }

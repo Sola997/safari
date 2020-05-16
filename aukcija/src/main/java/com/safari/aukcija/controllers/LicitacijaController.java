@@ -60,4 +60,16 @@ public class LicitacijaController {
 		licitacija.setPredmet(predmet);
 		return licitacijaService.addLicitacija(licitacija);
 	}
+	
+	@RequestMapping(value = "/getVictories", method = RequestMethod.GET, produces = "application/json")
+	public List<Licitacija> getVictories(Principal currentUser) {
+		Korisnik korisnik = korisnikService.getByUsername(currentUser.getName());
+		return licitacijaService.getVictories(korisnik);
+	}
+	
+	@RequestMapping(value = "/getLosses", method = RequestMethod.GET, produces = "application/json")
+	public List<Licitacija> getLosses(Principal currentUser) {
+		Korisnik korisnik = korisnikService.getByUsername(currentUser.getName());
+		return licitacijaService.getLosses(korisnik);
+	}
 }
