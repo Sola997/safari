@@ -55,4 +55,10 @@ public class PredmetController {
 		predmet.setKorisnik(korisnik);
 		return predmetService.addPredmet(predmet);
 	}
+	
+	@RequestMapping(value = "/getCompletedAuctions", method = RequestMethod.GET, produces = "application/json")
+	public List<Predmet> getCompletedAuctions(Principal currentUser) {
+		Korisnik korisnik = korisnikService.getByUsername(currentUser.getName());
+		return predmetService.getZavrseneAukcijeByKorisnik(korisnik);
+	}
 }

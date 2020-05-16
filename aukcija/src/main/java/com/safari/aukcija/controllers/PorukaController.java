@@ -56,7 +56,7 @@ public class PorukaController {
 	@RequestMapping(value = "/getNotifications", method = RequestMethod.GET, produces = "application/json")
 	public List<Poruka> getNotifications(Principal principal) {
 		Korisnik korisnik = korisnikService.getByUsername(principal.getName());
-		List<Predmet> predmeti = predmetService.getZavrseneAukcijeByKorisnik(korisnik);
+		List<Predmet> predmeti = predmetService.getNoveZavrseneAukcijeByKorisnik(korisnik);
 		for (Predmet p : predmeti) {
 			p.setStatus((byte) 1);
 			Licitacija pobednickaLicitacija = licitacijaService.getPobednickaLicitacija(p);

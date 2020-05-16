@@ -41,10 +41,17 @@ public class PredmetService {
 		return predmetRepository.findByKategorija(kategorija);
 	}
 
-	public List<Predmet> getZavrseneAukcijeByKorisnik(Korisnik k) {
+	public List<Predmet> getNoveZavrseneAukcijeByKorisnik(Korisnik k) {
 		List<Predmet> predmeti = this.getByKorisnik(k);
 		Date sada = new Date();
 		return predmeti.stream().filter(p -> p.getStatus() == (byte) 0 && p.getKrajAukcije().before(sada))
+				.collect(Collectors.toList());
+	}
+	
+	public List<Predmet> getZavrseneAukcijeByKorisnik(Korisnik k) {
+		List<Predmet> predmeti = this.getByKorisnik(k);
+		Date sada = new Date();
+		return predmeti.stream().filter(p -> p.getKrajAukcije().before(sada))
 				.collect(Collectors.toList());
 	}
 
