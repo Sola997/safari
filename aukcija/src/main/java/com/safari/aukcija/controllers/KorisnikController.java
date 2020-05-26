@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,7 +78,7 @@ public class KorisnikController {
 		return pobednickaLicitacija == null ? null : pobednickaLicitacija.getKorisnik();
 	}
 	
-	@RequestMapping(value = "/get5Najboljih", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/admin/get5Najboljih", method = RequestMethod.GET, produces = "application/json")
 	public List<Korisnik> get5Najboljih() {
 		return korisnikService.get5Najboljih();
 	}

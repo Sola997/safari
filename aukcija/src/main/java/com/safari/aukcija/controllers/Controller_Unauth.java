@@ -1,5 +1,7 @@
 package com.safari.aukcija.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,12 +36,13 @@ public class Controller_Unauth {
 	}
 	
 	@RequestMapping(value = "loginFaliure", method = RequestMethod.POST, produces = "application/json")
-	public boolean loginFaliure() {
-		return false;
+	public String loginFaliure() {
+		return "faliure";
 	}
 	
 	@RequestMapping(value = "loginSuccess", method = RequestMethod.GET, produces = "application/json")
-	public boolean loginSuccess() {
-		return true;
+	public String loginSuccess(Principal p) {
+		Korisnik k = korisnikService.getByUsername(p.getName());
+		return k.getUloga().getNazivUloge();
 	}
 }
