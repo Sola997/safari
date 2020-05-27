@@ -1,6 +1,10 @@
 package com.safari.aukcija.controllers;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +33,7 @@ public class PredmetController {
 
 	@Autowired
 	KategorijaService kategorijaService;
-	
+
 	@Autowired
 	KorisnikService korisnikService;
 
@@ -43,19 +47,35 @@ public class PredmetController {
 		Kategorija kategorija = kategorijaService.getById(idKategorija);
 		return predmetService.getByKategorija(kategorija);
 	}
-	
+
 	@RequestMapping(value = "/savePredmet", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public Predmet savePredmet(@RequestBody Predmet predmet, @RequestParam("idKategorija") Integer idKategorija,
-			Principal currentUser) {
+			@RequestParam("brojDana") Integer brojDana, Principal currentUser) {
 		Kategorija kategorija = kategorijaService.getById(idKategorija);
 		if (kategorija != null) {
 			predmet.setKategorija(kategorija);
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		c.add(Calendar.DATE, brojDana);
+		if(brojDana == 0) {
+			c.add(Calendar.MINUTE, 30);
+		}
+		String output = sdf.format(c.getTime());
+		Date date;
+		try {
+			date = sdf.parse(output);
+			predmet.setKrajAukcije(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		Korisnik korisnik = korisnikService.getByUsername(currentUser.getName());
 		predmet.setKorisnik(korisnik);
 		return predmetService.addPredmet(predmet);
 	}
-	
+
 	@RequestMapping(value = "/getCompletedAuctions", method = RequestMethod.GET, produces = "application/json")
 	public List<Predmet> getCompletedAuctions(Principal currentUser) {
 		Korisnik korisnik = korisnikService.getByUsername(currentUser.getName());

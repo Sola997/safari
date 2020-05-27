@@ -21,6 +21,7 @@ import model.Korisnik;
 import model.Licitacija;
 import model.Poruka;
 import model.Predmet;
+import model.Uloga;
 
 @RestController
 @RequestMapping("auth/korisnik")
@@ -47,6 +48,11 @@ public class KorisnikController {
 	@RequestMapping(value = "/getUserByUserName", method = RequestMethod.GET, produces = "application/json")
 	public Korisnik getUserByUserName(@RequestParam("userName") String userName) {
 		return korisnikService.getByUsername(userName);
+	}
+	
+	@RequestMapping(value = "/getRoleByUserName", method = RequestMethod.GET, produces = "application/json")
+	public Uloga getRoleByUserName(@RequestParam("username") String username) {
+		return korisnikService.getByUsername(username).getUloga();
 	}
 	
 	@RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET, produces = "application/json")

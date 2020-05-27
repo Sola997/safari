@@ -36,13 +36,12 @@ public class Controller_Unauth {
 	}
 	
 	@RequestMapping(value = "loginFaliure", method = RequestMethod.POST, produces = "application/json")
-	public String loginFaliure() {
-		return "faliure";
+	public boolean loginFaliure() {
+		return false;
 	}
 	
 	@RequestMapping(value = "loginSuccess", method = RequestMethod.GET, produces = "application/json")
-	public String loginSuccess(Principal p) {
-		Korisnik k = korisnikService.getByUsername(p.getName());
-		return k.getUloga().getNazivUloge();
+	public boolean loginSuccess(Principal p) {
+		return true;
 	}
 }
